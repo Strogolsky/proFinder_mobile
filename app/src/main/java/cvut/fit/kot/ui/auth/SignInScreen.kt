@@ -12,7 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import cvut.fit.kot.ui.theme.MyApplicationTheme
 
 @Composable
-fun SignUpScreen(
+fun SignInScreen(
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -50,13 +50,13 @@ fun SignUpScreen(
         Spacer(Modifier.height(16.dp))
         Button(
             onClick = {
-                viewModel.signUp(email, password, selectedRole)
+                viewModel.signIn(email, password, selectedRole)
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
         ) {
-            Text("Sign Up")
+            Text("Sign In")
         }
         Spacer(Modifier.height(16.dp))
         OutlinedButton(
@@ -73,9 +73,9 @@ fun SignUpScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun SignUpScreenPreview() {
+fun SignInScreenPreview() {
     MyApplicationTheme {
-        SignUpScreen(
+        SignInScreen(
             onBack = {}
         )
     }
