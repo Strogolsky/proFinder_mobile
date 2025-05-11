@@ -1,5 +1,5 @@
 package cvut.fit.kot.data.model
 
-data class SignUpResponse(
+data class AuthResponse(
     val token: String
 )
