@@ -13,10 +13,11 @@ import cvut.fit.kot.ui.theme.MyApplicationTheme
 
 @Composable
 fun SignInScreen(
+    uiState: AuthViewModel.UiState,
+    onSignIn: (email: String, password: String, role: String) -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val viewModel: AuthViewModel = hiltViewModel()
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var selectedRole by remember { mutableStateOf("CLIENT") }
@@ -48,16 +49,23 @@ fun SignInScreen(
             onRoleSelected = { selectedRole = it }
         )
         Spacer(Modifier.height(16.dp))
-        Button(
-            onClick = {
-                viewModel.signIn(email, password, selectedRole)
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-        ) {
-            Text("Sign In")
+
+        when (uiState) {
+            is AuthViewModel.UiState.Loading -> CircularProgressIndicator()
+            is AuthViewModel.UiState.Error -> Text(
+                text = (uiState as AuthViewModel.UiState.Error).message,
+                color = MaterialTheme.colorScheme.error
+            )
+            else -> Button(
+                onClick = { onSignIn(email, password, selectedRole) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+            ) {
+                Text("Sign In")
+            }
         }
+
         Spacer(Modifier.height(16.dp))
         OutlinedButton(
             onClick = onBack,
@@ -70,13 +78,15 @@ fun SignInScreen(
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun SignInScreenPreview() {
     MyApplicationTheme {
         SignInScreen(
-            onBack = {}
+            uiState   = AuthViewModel.UiState.Idle,
+            onSignIn  = { _, _, _ -> },
+            onBack    = {},
+            modifier   = Modifier.fillMaxSize()
         )
     }
 }

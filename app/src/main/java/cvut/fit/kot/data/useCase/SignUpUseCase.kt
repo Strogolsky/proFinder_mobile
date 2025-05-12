@@ -1,14 +1,15 @@
 package cvut.fit.kot.data.useCase
 
+import cvut.fit.kot.data.local.SessionDataStore
 import cvut.fit.kot.data.model.AuthRequest
 import cvut.fit.kot.data.repository.AuthRepository
-import cvut.fit.kot.data.local.SessionManager
+import cvut.fit.kot.data.repository.SessionRepository
 import retrofit2.HttpException
 import javax.inject.Inject
 
 class SignUpUseCase @Inject constructor(
     private val authRepository: AuthRepository,
-    private val sessionManager: SessionManager
+    private val sessionRepository: SessionRepository
 ) {
     suspend fun execute(email: String, password: String, role: String): Result<Unit> {
         return try {
@@ -17,7 +18,7 @@ class SignUpUseCase @Inject constructor(
             if (response.isSuccessful) {
                 val token = response.body()?.token
                 if (token != null) {
-                    sessionManager.saveAuthToken(token)
+                    sessionRepository.save(token, role)
                     Result.success(Unit)
                 } else {
                     Result.failure(Exception("No token in response"))
