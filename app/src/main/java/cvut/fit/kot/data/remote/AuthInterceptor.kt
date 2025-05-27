@@ -10,13 +10,21 @@ import javax.inject.Inject
 class AuthInterceptor @Inject constructor(
     private val tokenDS: SessionDataStore
 ) : Interceptor {
+
     override fun intercept(chain: Interceptor.Chain): Response {
-        val t = runBlocking { tokenDS.tokenFlow.first() }
-        val req = if (t != null)
-            chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer $t")
+        val original = chain.request()
+
+        if (original.url.encodedPath.startsWith("/auth")) {
+            return chain.proceed(original)
+        }
+
+        val token = runBlocking { tokenDS.tokenFlow.first() }
+        val authorised = if (!token.isNullOrEmpty()) {
+            original.newBuilder()
+                .addHeader("Authorization", "Bearer $token")
                 .build()
-        else chain.request()
-        return chain.proceed(req)
+        } else original
+
+        return chain.proceed(authorised)
     }
 }

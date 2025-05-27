@@ -34,7 +34,7 @@ fun AuthNavGraph(
             SignUpScreen(
                 uiState  = uiState,
                 onSignUp = { e, p, r ->
-                    viewModel.signIn(e, p, r)
+                    viewModel.signUp(e, p, r)
                     rootNav.navigate("auth-observer") {
                         popUpTo("signup") { inclusive = true }
                     }
