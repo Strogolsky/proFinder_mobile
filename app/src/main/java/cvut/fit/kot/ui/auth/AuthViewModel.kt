@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cvut.fit.kot.data.useCase.SignInUseCase
 import cvut.fit.kot.data.useCase.SignUpUseCase
+import cvut.fit.kot.data.repository.SessionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -13,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val signUpUseCase: SignUpUseCase,
-    private val signInUseCase: SignInUseCase
+    private val signInUseCase: SignInUseCase,
+    private val sessionRepository: SessionRepository
 ) : ViewModel() {
 
     sealed interface UiState {
@@ -26,19 +29,30 @@ class AuthViewModel @Inject constructor(
     private val _state = MutableStateFlow<UiState>(UiState.Idle)
     val state = _state.asStateFlow()
 
-    fun signUp(email: String, password: String, role: String) =
-        launchRequest { signUpUseCase.execute(email, password, role) }
+    val tokenFlow: Flow<String?> = sessionRepository.tokenFlow()
+    val roleFlow:  Flow<String?> = sessionRepository.roleFlow()
 
-    fun signIn(email: String, password: String, role: String) =
-        launchRequest { signInUseCase.execute(email, password, role) }
+    fun signUp(email: String, password: String, role: String) = launchRequest {
+        signUpUseCase.execute(email, password, role)
+    }
+
+    fun signIn(email: String, password: String, role: String) = launchRequest {
+        signInUseCase.execute(email, password, role)
+    }
 
     private inline fun launchRequest(
         crossinline block: suspend () -> Result<Unit>
     ) = viewModelScope.launch {
         _state.value = UiState.Loading
         _state.value = block()
-            .fold(onSuccess = { UiState.Success },
-                onFailure = { UiState.Error(it.message ?: "Unknown error") })
+            .fold(
+                onSuccess = { UiState.Success },
+                onFailure = { UiState.Error(it.message ?: "Unknown error") }
+            )
+    }
+
+    fun logout() = viewModelScope.launch {
+        sessionRepository.clear()
+        _state.value = UiState.Idle
     }
 }
-
