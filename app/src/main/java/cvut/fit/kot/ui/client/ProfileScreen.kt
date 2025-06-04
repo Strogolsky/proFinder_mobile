@@ -1,9 +1,11 @@
 package cvut.fit.kot.ui.client
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -16,11 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import coil.compose.AsyncImage
-import cvut.fit.kot.ui.client.ClientProfileViewModel
 import cvut.fit.kot.ui.client.ClientProfileViewModel.UiState
-import cvut.fit.kot.ui.client.ClientUiModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,8 +58,18 @@ private fun ProfileContent(ui: ClientUiModel) {
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = Modifier.padding(horizontal = 24.dp)
     ) {
-        AsyncImage(
-            model = ui.avatar,
+        ui.avatar?.let { bitmap ->
+            Image(
+                bitmap = bitmap,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(112.dp)
+                    .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape)
+                    .padding(2.dp)
+                    .clip(CircleShape)
+            )
+        } ?: Icon(
+            imageVector = Icons.Default.AccountCircle,
             contentDescription = null,
             modifier = Modifier
                 .size(112.dp)
@@ -92,6 +100,7 @@ private fun ProfileContent(ui: ClientUiModel) {
     }
 }
 
+
 @Composable
 private fun ErrorContent(th: Throwable) {
     Text("Error: ${th.localizedMessage}")
@@ -103,7 +112,7 @@ private fun ErrorContent(th: Throwable) {
 private fun ProfilePreview() {
     ProfileContent(
         ClientUiModel(
-            avatar = "https://i.pravatar.cc/256",
+            avatar = null,
             name = "Steve Smith",
             city = "Prague",
             role = "CLIENT",

@@ -43,4 +43,5 @@ object NetworkModule {
 
     @Provides fun provideAuthApi(r: Retrofit): AuthApi         = r.create(AuthApi::class.java)
     @Provides fun provideClientApi(r: Retrofit): ClientApi     = r.create(ClientApi::class.java)
+    @Provides fun provideFileApi(r: Retrofit): FileApi         = r.create(FileApi::class.java)
 }
