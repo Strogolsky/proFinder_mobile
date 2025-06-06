@@ -11,6 +11,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,14 +29,41 @@ fun ProfileScreen(
     viewModel: ClientProfileViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
+    val expanded = remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("Profile") },
                 actions = {
-                    IconButton(onClick = { /* TODO: navigate to edit */ }) {
-                        Icon(Icons.Outlined.Edit, null)
+                    Box {
+                        IconButton(onClick = { expanded.value = true }) {
+                            Icon(Icons.Outlined.Edit, contentDescription = "Menu")
+                        }
+
+                        DropdownMenu(
+                            expanded = expanded.value,
+                            onDismissRequest = { expanded.value = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text("Edit profile") },
+                                onClick = {
+                                    expanded.value = false
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("Logout") },
+                                onClick = {
+                                    expanded.value = false
+                                    viewModel.logout {
+                                        rootNav.navigate("landing") {
+                                            popUpTo(0) { inclusive = true }
+                                            launchSingleTop = true
+                                        }
+                                    }
+                                }
+                            )
+                        }
                     }
                 }
             )
