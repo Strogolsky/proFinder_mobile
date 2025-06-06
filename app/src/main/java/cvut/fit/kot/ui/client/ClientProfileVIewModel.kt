@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import cvut.fit.kot.data.model.ClientResponse
 import cvut.fit.kot.data.useCase.GetAvatarUseCase
 import cvut.fit.kot.data.useCase.GetClientProfileUseCase
+import cvut.fit.kot.data.useCase.LogOutUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ClientProfileViewModel @Inject constructor(
     private val getProfile: GetClientProfileUseCase,
-    private val getAvatarUseCase: GetAvatarUseCase
+    private val getAvatarUseCase: GetAvatarUseCase,
+    private val logOutUseCase: LogOutUseCase
 ) : ViewModel() {
 
     /* ---- UiState ---- */
@@ -48,6 +50,10 @@ class ClientProfileViewModel @Inject constructor(
         } catch (t: Throwable) {
             _state.value = UiState.Error(t)
         }
+    }
+    fun logout(onDone: () -> Unit) = viewModelScope.launch {
+        logOutUseCase.execute()
+        onDone()
     }
 }
 
