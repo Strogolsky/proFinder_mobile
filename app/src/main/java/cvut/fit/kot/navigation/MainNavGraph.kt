@@ -13,10 +13,10 @@ import cvut.fit.kot.ui.auth.AuthViewModel
 import cvut.fit.kot.ui.auth.SignInScreen
 import cvut.fit.kot.ui.auth.SignUpScreen
 import cvut.fit.kot.ui.client.ClientMainScreen
-// import cvut.fit.kot.ui.specialist.SpecialistMainScreen
+import cvut.fit.kot.ui.client.EditProfileScreen
 
 @Composable
-fun AuthNavGraph(
+fun MainNavGraph(
     rootNav: NavHostController,
     viewModel: AuthViewModel = hiltViewModel()
 ) {
@@ -70,9 +70,7 @@ fun AuthNavGraph(
             }
         }
 
-        composable("client_main") {
-            ClientMainScreen(rootNav)
-        }
-        // composable("specialist_main") { SpecialistMainScreen(rootNav) }
+        composable("client_main") { ClientMainScreen(rootNav) }
+        composable("edit_profile") { EditProfileScreen(rootNav) }
     }
 }

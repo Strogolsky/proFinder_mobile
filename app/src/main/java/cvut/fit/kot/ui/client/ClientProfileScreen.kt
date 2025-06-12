@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,6 +31,18 @@ fun ProfileScreen(
 ) {
     val uiState by viewModel.state.collectAsState()
     val expanded = remember { mutableStateOf(false) }
+    val savedStateHandle = rootNav.currentBackStackEntry?.savedStateHandle
+
+    LaunchedEffect(Unit) {
+        savedStateHandle
+            ?.getStateFlow("profile_updated", false)
+            ?.collect { changed ->
+                if (changed) {
+                    viewModel.load()
+                    savedStateHandle["profile_updated"] = false
+                }
+            }
+    }
 
     Scaffold(
         topBar = {
@@ -49,10 +62,11 @@ fun ProfileScreen(
                                 text = { Text("Edit profile") },
                                 onClick = {
                                     expanded.value = false
+                                    rootNav.navigate("edit_profile")
                                 }
                             )
                             DropdownMenuItem(
-                                text = { Text("Logout") },
+                                text = { Text("Log out") },
                                 onClick = {
                                     expanded.value = false
                                     viewModel.logout {

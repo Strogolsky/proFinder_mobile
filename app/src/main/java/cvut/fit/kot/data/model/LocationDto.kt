@@ -1,6 +1,6 @@
 package cvut.fit.kot.data.model
 
-data class LocationResponse(
+data class LocationDto(
     val id: Long,
     val name: String
 )

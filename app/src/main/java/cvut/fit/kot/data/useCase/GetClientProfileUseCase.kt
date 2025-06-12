@@ -6,10 +6,10 @@ import cvut.fit.kot.data.repository.ClientRepository
 import javax.inject.Inject
 
 class GetClientProfileUseCase @Inject constructor(
-    private val repo: ClientRepository
+    private val repository: ClientRepository
 ) {
     suspend fun execute(): Result<ClientResponse> = try {
-        val response = repo.getProfile()
+        val response = repository.getProfile()
         if (response.isSuccessful) {
             response.body()?.let { Result.success(it) }
                 ?: Result.failure(IllegalStateException("Empty body"))
