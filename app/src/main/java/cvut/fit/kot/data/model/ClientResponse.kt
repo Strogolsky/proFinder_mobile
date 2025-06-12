@@ -9,11 +9,9 @@ data class ClientResponse(
 
     val lastName: String,
 
-    val password: String,
-
     val phoneNumber: String,
 
-    val location: LocationResponse,
+    val location: LocationDto,
 
     val createdAt: String,
 
