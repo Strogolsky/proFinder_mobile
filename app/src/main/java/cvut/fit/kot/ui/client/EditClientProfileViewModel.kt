@@ -76,7 +76,6 @@ class EditProfileViewModel @Inject constructor(
     }
 }
 
-/* ------------ маппер  ------------ */
 private fun ClientResponse.toRequest() = ClientRequest(
     firstName   = firstName.orEmpty(),
     lastName    = lastName.orEmpty(),

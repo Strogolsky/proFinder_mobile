@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,6 +33,7 @@ fun ProfileScreen(
     val uiState by viewModel.state.collectAsState()
     val expanded = remember { mutableStateOf(false) }
     val savedStateHandle = rootNav.currentBackStackEntry?.savedStateHandle
+    val showLogoutDialog = remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         savedStateHandle
@@ -69,12 +71,7 @@ fun ProfileScreen(
                                 text = { Text("Log out") },
                                 onClick = {
                                     expanded.value = false
-                                    viewModel.logout {
-                                        rootNav.navigate("landing") {
-                                            popUpTo(0) { inclusive = true }
-                                            launchSingleTop = true
-                                        }
-                                    }
+                                    showLogoutDialog.value = true
                                 }
                             )
                         }
@@ -90,6 +87,33 @@ fun ProfileScreen(
                 is UiState.Success -> ProfileContent((uiState as UiState.Success).user)
             }
         }
+    }
+    if (showLogoutDialog.value) {
+        AlertDialog(
+            modifier = Modifier.testTag("logout_dialog"),
+            onDismissRequest = { showLogoutDialog.value = false },
+            text  = { Text("Do you really want to log out of your account?") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showLogoutDialog.value = false
+                        viewModel.logout {
+                            rootNav.navigate("landing") {
+                                popUpTo(0) { inclusive = true }
+                                launchSingleTop = true
+                            }
+                        }
+                    }
+                ) {
+                    Text("Yes", color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showLogoutDialog.value = false }) {
+                    Text("No")
+                }
+            }
+        )
     }
 }
 
