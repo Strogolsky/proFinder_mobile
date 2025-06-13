@@ -32,6 +32,12 @@ class SessionDataStore @Inject constructor(
         }
     }
 
+    suspend fun saveToken(token: String) {
+        prefs.edit { settings ->
+            settings[KEY_TOKEN] = token
+        }
+    }
+
     suspend fun clear() {
         prefs.edit { it.clear() }
     }

@@ -18,6 +18,9 @@ class SessionRepository @Inject constructor(
         sessionDataStore.save(token, role)
     }
 
+    suspend fun saveToken(token: String) =
+        sessionDataStore.saveToken(token)
+
     suspend fun clear() {
         sessionDataStore.clear()
     }

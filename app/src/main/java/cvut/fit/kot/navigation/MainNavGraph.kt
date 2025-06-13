@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import cvut.fit.kot.ui.auth.AuthLandingScreen
 import cvut.fit.kot.ui.auth.AuthViewModel
+import cvut.fit.kot.ui.auth.ChangePasswordScreen
 import cvut.fit.kot.ui.auth.SignInScreen
 import cvut.fit.kot.ui.auth.SignUpScreen
 import cvut.fit.kot.ui.client.ClientMainScreen
@@ -72,5 +73,6 @@ fun MainNavGraph(
 
         composable("client_main") { ClientMainScreen(rootNav) }
         composable("edit_profile") { EditProfileScreen(rootNav) }
+        composable("change_password") { ChangePasswordScreen(rootNav)}
     }
 }
