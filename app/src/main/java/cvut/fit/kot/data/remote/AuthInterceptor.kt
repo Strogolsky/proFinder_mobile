@@ -11,20 +11,29 @@ class AuthInterceptor @Inject constructor(
     private val tokenDS: SessionDataStore
 ) : Interceptor {
 
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val original = chain.request()
+    private val guestPaths = setOf(
+        "auth/signUp",
+        "auth/signIn"
+    )
 
-        if (original.url.encodedPath.startsWith("/auth")) {
-            return chain.proceed(original)
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val request = chain.request()
+        val path    = request.url.encodedPath
+
+        if (path in guestPaths) {
+            return chain.proceed(request)
         }
 
         val token = runBlocking { tokenDS.tokenFlow.first() }
-        val authorised = if (!token.isNullOrEmpty()) {
-            original.newBuilder()
+
+        val authorisedRequest = if (!token.isNullOrEmpty()) {
+            request.newBuilder()
                 .addHeader("Authorization", "Bearer $token")
                 .build()
-        } else original
+        } else {
+            request
+        }
 
-        return chain.proceed(authorised)
+        return chain.proceed(authorisedRequest)
     }
 }
