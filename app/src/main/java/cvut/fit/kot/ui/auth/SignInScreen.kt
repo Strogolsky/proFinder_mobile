@@ -8,11 +8,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import cvut.fit.kot.ui.theme.MyApplicationTheme
+
 
 @Composable
 fun SignInScreen(
+    nav: NavHostController,
     uiState: AuthViewModel.UiState,
     onSignIn: (email: String, password: String, role: String) -> Unit,
     onBack: () -> Unit,
@@ -43,17 +45,25 @@ fun SignInScreen(
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth()
         )
+
         Spacer(Modifier.height(16.dp))
         RoleSelector(
             selectedRole = selectedRole,
             onRoleSelected = { selectedRole = it }
         )
-        Spacer(Modifier.height(16.dp))
+
+        TextButton(
+            onClick = { nav.navigate("forgot_password") },
+            modifier = Modifier.align(Alignment.Start)
+        ) {
+            Text("Forgot password?")
+        }
+
 
         when (uiState) {
             is AuthViewModel.UiState.Loading -> CircularProgressIndicator()
-            is AuthViewModel.UiState.Error -> Text(
-                text = (uiState as AuthViewModel.UiState.Error).message,
+            is AuthViewModel.UiState.Error   -> Text(
+                text  = uiState.message,
                 color = MaterialTheme.colorScheme.error
             )
             else -> Button(
@@ -61,9 +71,7 @@ fun SignInScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
-            ) {
-                Text("Sign In")
-            }
+            ) { Text("Sign In") }
         }
 
         Spacer(Modifier.height(16.dp))
@@ -72,9 +80,7 @@ fun SignInScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
-        ) {
-            Text("Back")
-        }
+        ) { Text("Back") }
     }
 }
 
@@ -83,10 +89,11 @@ fun SignInScreen(
 fun SignInScreenPreview() {
     MyApplicationTheme {
         SignInScreen(
+            nav       = androidx.navigation.compose.rememberNavController(),
             uiState   = AuthViewModel.UiState.Idle,
             onSignIn  = { _, _, _ -> },
             onBack    = {},
-            modifier   = Modifier.fillMaxSize()
+            modifier  = Modifier.fillMaxSize()
         )
     }
 }

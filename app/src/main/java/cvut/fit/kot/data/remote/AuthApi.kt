@@ -3,6 +3,8 @@ package cvut.fit.kot.data.remote
 import cvut.fit.kot.data.model.AuthRequest
 import cvut.fit.kot.data.model.AuthResponse
 import cvut.fit.kot.data.model.ChangePasswordRequest
+import cvut.fit.kot.data.model.ForgotPasswordRequest
+import cvut.fit.kot.data.model.ResetPasswordRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -17,4 +19,10 @@ interface AuthApi {
 
     @PUT("auth/password/change")
     suspend fun changePassword(@Body request: ChangePasswordRequest): Response<AuthResponse>
+
+    @PUT("auth/password/forgot")
+    suspend fun forgotPassword(@Body request: ForgotPasswordRequest): Response<Unit>
+
+    @PUT("auth/password/reset")
+    suspend fun resetPassword(@Body request: ResetPasswordRequest): Response<AuthResponse>
 }
