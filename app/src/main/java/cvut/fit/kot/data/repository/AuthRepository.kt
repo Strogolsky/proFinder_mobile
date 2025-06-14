@@ -2,6 +2,7 @@ package cvut.fit.kot.data.repository
 
 import cvut.fit.kot.data.model.AuthRequest
 import cvut.fit.kot.data.model.AuthResponse
+import cvut.fit.kot.data.model.ChangeEmailRequest
 import cvut.fit.kot.data.model.ChangePasswordRequest
 import cvut.fit.kot.data.model.ForgotPasswordRequest
 import cvut.fit.kot.data.model.ResetPasswordRequest
@@ -26,4 +27,7 @@ class AuthRepository @Inject constructor(
 
     suspend fun resetPassword(request: ResetPasswordRequest): Response<AuthResponse> =
         api.resetPassword(request)
+
+    suspend fun changeEmail(request: ChangeEmailRequest): Response<AuthResponse> =
+        api.changeEmail(request);
 }

@@ -75,6 +75,13 @@ fun ProfileScreen(
                                 }
                             )
                             DropdownMenuItem(
+                                text = { Text("Change email") },
+                                onClick = {
+                                    expanded.value = false
+                                    rootNav.navigate("change_email")
+                                }
+                            )
+                            DropdownMenuItem(
                                 text = { Text("Log out") },
                                 onClick = {
                                     expanded.value = false
