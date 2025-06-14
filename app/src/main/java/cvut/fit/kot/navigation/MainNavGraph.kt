@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import cvut.fit.kot.ui.auth.AuthLandingScreen
 import cvut.fit.kot.ui.auth.AuthViewModel
+import cvut.fit.kot.ui.auth.ChangeEmailScreen
 import cvut.fit.kot.ui.auth.ChangePasswordScreen
 import cvut.fit.kot.ui.auth.ForgotPasswordScreen
 import cvut.fit.kot.ui.auth.ResetPasswordScreen
@@ -80,6 +81,7 @@ fun MainNavGraph(
         composable("edit_profile") { EditProfileScreen(rootNav) }
         composable("change_password") { ChangePasswordScreen(rootNav)}
         composable("forgot_password") { ForgotPasswordScreen(rootNav)}
+        composable("change_email") { ChangeEmailScreen(rootNav)}
 
         composable(
             route = "reset_password?email={email}",
