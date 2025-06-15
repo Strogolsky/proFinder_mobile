@@ -1,5 +1,6 @@
 package cvut.fit.kot.data.repository
 
+import cvut.fit.kot.data.model.ChatMessageResponse
 import cvut.fit.kot.data.model.ChatResponse
 import cvut.fit.kot.data.remote.ChatApi
 import retrofit2.Response
@@ -10,4 +11,7 @@ class ChatRepository @Inject constructor(
 ) {
     suspend fun getChatsProfile(): Response<List<ChatResponse>> =
         api.getChatsProfile()
+
+    suspend fun getHistory(chatId: Long): Response<List<ChatMessageResponse>> =
+        api.getChatHistory(chatId)
 }

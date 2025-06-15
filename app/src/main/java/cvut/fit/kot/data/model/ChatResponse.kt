@@ -5,5 +5,5 @@ data class ChatResponse (
 
     val partnerId: Long,
 
-    val partnerFirstName: String
+    val partnerFirstName: String?
 )

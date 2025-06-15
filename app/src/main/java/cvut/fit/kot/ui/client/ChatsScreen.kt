@@ -61,10 +61,12 @@ fun ChatsScreen(
 
 @Composable
 private fun ChatItem(
-    partnerName: String,
+    partnerName: String?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val displayName = partnerName?.takeIf { it.isNotBlank() } ?: "No name"
+
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -73,8 +75,9 @@ private fun ChatItem(
     ) {
         Spacer(Modifier.width(16.dp))
         Text(
-            text = partnerName,
+            text = displayName,
             style = MaterialTheme.typography.bodyLarge
         )
     }
 }
+
