@@ -45,4 +45,5 @@ object NetworkModule {
     @Provides fun provideLocationApi(r: Retrofit): LocationApi = r.create(LocationApi::class.java)
     @Provides fun provideSearchApi(r: Retrofit): SearchApi = r.create(SearchApi::class.java)
     @Provides fun provideSpecialistApi(r: Retrofit): SpecialistApi = r.create(SpecialistApi::class.java)
+    @Provides fun provideChatApi(r: Retrofit): ChatApi = r.create(ChatApi::class.java)
 }
