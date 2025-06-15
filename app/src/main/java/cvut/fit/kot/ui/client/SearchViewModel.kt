@@ -62,6 +62,12 @@ class SearchViewModel @Inject constructor(
 
     private fun debounceSearch() {
         debounceJob?.cancel()
+
+        if (state.value.query.isBlank()) {
+            _state.update { it.copy(data = emptyList(), error = null) }
+            return
+        }
+
         debounceJob = viewModelScope.launch {
             delay(400)
             performSearch()

@@ -57,8 +57,8 @@ fun SearchScreen(
                 state.isLoading      -> LoadingSection()
                 state.error != null  -> ErrorSection(state.error!!, vm::search)
                 state.data.isEmpty() -> EmptySection()
-                else                 -> ResultList(state.data) {
-                    rootNav.navigate("specialist/${it.id}")
+                else                 -> ResultList(state.data) { specialist ->
+                    rootNav.navigate("specialist/${specialist.id}")
                 }
             }
         }

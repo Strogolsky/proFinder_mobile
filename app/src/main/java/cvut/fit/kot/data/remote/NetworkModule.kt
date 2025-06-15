@@ -44,4 +44,5 @@ object NetworkModule {
     @Provides fun provideFileApi(r: Retrofit): FileApi         = r.create(FileApi::class.java)
     @Provides fun provideLocationApi(r: Retrofit): LocationApi = r.create(LocationApi::class.java)
     @Provides fun provideSearchApi(r: Retrofit): SearchApi = r.create(SearchApi::class.java)
+    @Provides fun provideSpecialistApi(r: Retrofit): SpecialistApi = r.create(SpecialistApi::class.java)
 }
