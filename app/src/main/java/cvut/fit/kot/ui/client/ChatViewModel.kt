@@ -9,13 +9,17 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import cvut.fit.kot.data.model.ChatMessageResponse
 import cvut.fit.kot.data.useCase.GetChatHistoryUseCase
+import cvut.fit.kot.data.useCase.ObserveChatMessagesUseCase
+import cvut.fit.kot.data.repository.SendMessageUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val getChatHistory: GetChatHistoryUseCase
+    private val getChatHistory: GetChatHistoryUseCase,
+    private val observeMessages: ObserveChatMessagesUseCase,
+    private val sendMessage: SendMessageUseCase
 ) : ViewModel() {
 
     private val chatId: Long =
@@ -30,7 +34,10 @@ class ChatViewModel @Inject constructor(
     var uiState by mutableStateOf<UiState>(UiState.Loading)
         private set
 
-    init { loadHistory() }
+    init {
+        loadHistory()       // REST
+        subscribeWs()       // WebSocket
+    }
 
     private fun loadHistory() = viewModelScope.launch {
         uiState = UiState.Loading
@@ -39,5 +46,23 @@ class ChatViewModel @Inject constructor(
             { UiState.Error(it.message ?: "Error") }
         )
     }
+
+    private fun subscribeWs() = viewModelScope.launch {
+
+        observeMessages(chatId).collect { incoming ->
+            uiState = when (uiState) {
+                is UiState.Success -> {
+                    val current = (uiState as UiState.Success).messages
+                    UiState.Success(current + incoming)
+                }
+                else -> uiState
+            }
+        }
+    }
+
+    fun send(text: String) = viewModelScope.launch {
+        if (text.isNotBlank()) sendMessage(chatId, text.trim())
+    }
 }
+
 
