@@ -6,13 +6,16 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cvut.fit.kot.data.model.CreateChatRequest
 import cvut.fit.kot.data.model.SpecialistResponse
+import cvut.fit.kot.data.useCase.CreateChatUseCase
 import cvut.fit.kot.data.useCase.GetAvatarUseCase
 import cvut.fit.kot.data.useCase.GetSpecialistByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,6 +23,7 @@ class SpecialistViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getDetail: GetSpecialistByIdUseCase,
     private val getAvatar: GetAvatarUseCase,
+    private val createChat: CreateChatUseCase
 ) : ViewModel() {
 
 
@@ -53,9 +57,24 @@ class SpecialistViewModel @Inject constructor(
         }
     }
 
-    /* ---------- public ---------- */
     fun openChat(onReady: (Long) -> Unit) = viewModelScope.launch {
+        try {
+            val resp = createChat(CreateChatRequest(recipientId = id))
+
+            if (resp.isSuccessful) {
+                val chatId = resp.body()?.chatId
+                    ?: throw IllegalStateException("Empty body")
+
+                onReady(chatId)
+            } else {
+                throw HttpException(resp)
+            }
+
+        } catch (e: Exception) {
+            _state.value = UiState.Error(e)
+        }
     }
+
 }
 
 /* --- UI model & mapper --- */

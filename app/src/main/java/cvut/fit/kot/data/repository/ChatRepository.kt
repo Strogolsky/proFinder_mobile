@@ -2,6 +2,7 @@ package cvut.fit.kot.data.repository
 
 import cvut.fit.kot.data.model.ChatMessageResponse
 import cvut.fit.kot.data.model.ChatResponse
+import cvut.fit.kot.data.model.CreateChatRequest
 import cvut.fit.kot.data.remote.ChatApi
 import cvut.fit.kot.data.remote.ChatDataStore
 import retrofit2.Response
@@ -21,4 +22,7 @@ class ChatRepository @Inject constructor(
         ws.listen(chatId)
     fun send(chatId: Long, text: String) =
         ws.send(chatId, text)
+
+    suspend fun create(request: CreateChatRequest): Response<ChatResponse> =
+        api.create(request)
 }
