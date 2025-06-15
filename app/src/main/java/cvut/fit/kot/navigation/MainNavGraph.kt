@@ -20,6 +20,7 @@ import cvut.fit.kot.ui.auth.SignInScreen
 import cvut.fit.kot.ui.auth.SignUpScreen
 import cvut.fit.kot.ui.client.ClientMainScreen
 import cvut.fit.kot.ui.client.EditProfileScreen
+import cvut.fit.kot.ui.client.SpecialistScreen
 
 @Composable
 fun MainNavGraph(
@@ -82,6 +83,12 @@ fun MainNavGraph(
         composable("change_password") { ChangePasswordScreen(rootNav)}
         composable("forgot_password") { ForgotPasswordScreen(rootNav)}
         composable("change_email") { ChangeEmailScreen(rootNav)}
+        composable(
+            route = "specialist/{id}",
+            arguments = listOf(navArgument("id") { type = NavType.LongType })
+        ) {
+            SpecialistScreen(rootNav)
+        }
 
         composable(
             route = "reset_password?email={email}",
