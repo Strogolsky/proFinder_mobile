@@ -1,4 +1,4 @@
-package cvut.fit.kot.ui.viewmodel
+package cvut.fit.kot.ui.client
 
 import android.graphics.BitmapFactory
 import androidx.compose.ui.graphics.ImageBitmap
@@ -27,7 +27,6 @@ class SpecialistViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    /* ---------- UI-state ---------- */
     sealed interface UiState {
         object Loading : UiState
         data class Success(val data: SpecialistUiModel) : UiState
@@ -77,7 +76,6 @@ class SpecialistViewModel @Inject constructor(
 
 }
 
-/* --- UI model & mapper --- */
 data class SpecialistUiModel(
     val avatar: ImageBitmap?,
     val name: String,

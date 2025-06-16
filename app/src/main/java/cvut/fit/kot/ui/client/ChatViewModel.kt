@@ -35,8 +35,8 @@ class ChatViewModel @Inject constructor(
         private set
 
     init {
-        loadHistory()       // REST
-        subscribeWs()       // WebSocket
+        loadHistory()
+        subscribeWs()
     }
 
     private fun loadHistory() = viewModelScope.launch {

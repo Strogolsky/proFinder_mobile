@@ -36,7 +36,7 @@ fun ChatsScreen(
                     .fillMaxSize()
                     .padding(padding),
                 contentAlignment = Alignment.Center
-            ) { Text(state.message) }
+            ) { Text(text = state.message ?: "") }
 
             is ChatsViewModel.UiState.Success -> {
                 val chats = state.chats

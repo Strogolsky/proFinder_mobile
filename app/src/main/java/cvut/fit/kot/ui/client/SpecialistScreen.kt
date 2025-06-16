@@ -16,8 +16,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import cvut.fit.kot.ui.viewmodel.SpecialistViewModel
-import cvut.fit.kot.ui.viewmodel.SpecialistUiModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -68,7 +66,6 @@ fun SpecialistScreen(
     }
 }
 
-/* -------- profile layout -------- */
 @Composable
 private fun SpecialistContent(ui: SpecialistUiModel) {
     Column(

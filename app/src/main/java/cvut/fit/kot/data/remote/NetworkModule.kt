@@ -31,17 +31,15 @@ object NetworkModule {
         logger: HttpLoggingInterceptor,
         auth:   AuthInterceptor
     ): OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor(logger)      // REST-логирование
+        .addInterceptor(logger)
         .addInterceptor(auth)
         .build()
 
     @Provides @Singleton @Named("WsClient")
     fun provideWsClient(auth: AuthInterceptor): OkHttpClient =
         OkHttpClient.Builder()
-            .addInterceptor(auth)     // без логгера → не падать на 101
+            .addInterceptor(auth)
             .build()
-
-    /* ---------- Retrofit (пропадал!) ---------- */
 
     @Provides @Singleton
     fun provideRetrofit(
@@ -53,11 +51,7 @@ object NetworkModule {
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 
-    /* ---------- Gson ---------- */
-
     @Provides @Singleton fun provideGson(): Gson = Gson()
-
-    /* ---------- REST API ---------- */
 
     @Provides fun provideAuthApi(r: Retrofit): AuthApi         = r.create(AuthApi::class.java)
     @Provides fun provideClientApi(r: Retrofit): ClientApi     = r.create(ClientApi::class.java)
@@ -67,8 +61,6 @@ object NetworkModule {
     @Provides fun provideSpecialistApi(r: Retrofit): SpecialistApi = r.create(SpecialistApi::class.java)
     @Provides fun provideChatApi(r: Retrofit): ChatApi         = r.create(ChatApi::class.java)
 
-    /* ---------- ChatDataStore (WS) ---------- */
-
     @Provides @Singleton
     fun provideChatDataStore(
         @Named("WsClient") wsClient: OkHttpClient,
@@ -76,8 +68,6 @@ object NetworkModule {
         gson: Gson,
         session: SessionDataStore
     ) = ChatDataStore(wsClient, baseWs, session, gson)
-
-    /* ---------- constants ---------- */
 
     @Provides @Named("BASE_WS_URL") fun baseWsUrl() = BASE_WS_URL
 }
