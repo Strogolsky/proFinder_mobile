@@ -93,7 +93,7 @@ private fun SpecialistResponse.toUi(img: ImageBitmap?) = SpecialistUiModel(
     city         = location.name,
     rating       = averageRating,
     services     = serviceOfferings.map { it.name },
-    description  = description,
+    description  = description.orEmpty(),
     email        = email,
-    phone        = phoneNumber
+    phone        = phoneNumber.orEmpty()
 )

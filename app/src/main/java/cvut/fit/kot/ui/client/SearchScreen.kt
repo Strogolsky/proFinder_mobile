@@ -160,7 +160,7 @@ private fun SpecialistCard(
             Text("${item.firstName} ${item.lastName}",
                 style = MaterialTheme.typography.titleMedium)
             Spacer(Modifier.height(4.dp))
-            Text(item.description,
+            Text(item.description.orEmpty(),
                 maxLines = 2,
                 style = MaterialTheme.typography.bodyMedium)
             Spacer(Modifier.height(4.dp))
