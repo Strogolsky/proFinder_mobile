@@ -2,9 +2,9 @@ package cvut.fit.kot.ui.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cvut.fit.kot.data.repository.SessionRepository
 import cvut.fit.kot.data.useCase.SignInUseCase
 import cvut.fit.kot.data.useCase.SignUpUseCase
-import cvut.fit.kot.data.repository.SessionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +20,7 @@ class AuthViewModel @Inject constructor(
 ) : ViewModel() {
 
     sealed interface UiState {
-        object Idle : UiState
+        object Idle    : UiState
         object Loading : UiState
         object Success : UiState
         data class Error(val message: String) : UiState
@@ -30,7 +30,7 @@ class AuthViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     val tokenFlow: Flow<String?> = sessionRepository.tokenFlow()
-    val roleFlow:  Flow<String?> = sessionRepository.roleFlow()
+    val roleFlow : Flow<String?> = sessionRepository.roleFlow()
 
     fun signUp(email: String, password: String, role: String) = launchRequest {
         signUpUseCase.execute(email, password, role)
@@ -49,6 +49,14 @@ class AuthViewModel @Inject constructor(
                 onSuccess = { UiState.Success },
                 onFailure = { UiState.Error(it.message ?: "Unknown error") }
             )
+    }
+
+    fun clearError() {
+        if (_state.value is UiState.Error) _state.value = UiState.Idle
+    }
+
+    fun resetState() {
+        _state.value = UiState.Idle
     }
 
     fun logout() = viewModelScope.launch {

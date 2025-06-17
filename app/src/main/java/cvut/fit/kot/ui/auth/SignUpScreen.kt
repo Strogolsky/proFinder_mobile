@@ -13,13 +13,23 @@ import cvut.fit.kot.ui.theme.MyApplicationTheme
 @Composable
 fun SignUpScreen(
     uiState: AuthViewModel.UiState,
-    onSignUp: (email: String, password: String, role: String) -> Unit,
+    onSignUp: (String, String, String) -> Unit,
+    onErrorShown: () -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var selectedRole by remember { mutableStateOf("CLIENT") }
+    var role by remember { mutableStateOf("CLIENT") }
+
+    if (uiState is AuthViewModel.UiState.Error) {
+        AlertDialog(
+            onDismissRequest = onErrorShown,
+            confirmButton = { TextButton(onClick = onErrorShown) { Text("OK") } },
+            title = { Text("Error") },
+            text  = { Text(uiState.message) }
+        )
+    }
 
     Column(
         modifier = modifier
@@ -35,6 +45,7 @@ fun SignUpScreen(
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(Modifier.height(16.dp))
+
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
@@ -43,49 +54,44 @@ fun SignUpScreen(
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(Modifier.height(16.dp))
-        RoleSelector(
-            selectedRole = selectedRole,
-            onRoleSelected = { selectedRole = it }
-        )
+
+        RoleSelector(selectedRole = role, onRoleSelected = { role = it })
         Spacer(Modifier.height(16.dp))
 
-        when (uiState) {
-            is AuthViewModel.UiState.Loading -> CircularProgressIndicator()
-            is AuthViewModel.UiState.Error -> Text(
-                text = (uiState as AuthViewModel.UiState.Error).message,
-                color = MaterialTheme.colorScheme.error
-            )
-            else -> Button(
-                onClick = { onSignUp(email, password, selectedRole) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp)
-            ) {
+        Button(
+            onClick = { onSignUp(email, password, role) },
+            enabled = uiState !is AuthViewModel.UiState.Loading,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+        ) {
+            if (uiState is AuthViewModel.UiState.Loading) {
+                CircularProgressIndicator(strokeWidth = 2.dp, modifier = Modifier.size(24.dp))
+            } else {
                 Text("Sign Up")
             }
         }
 
         Spacer(Modifier.height(16.dp))
+
         OutlinedButton(
             onClick = onBack,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
-        ) {
-            Text("Back")
-        }
+        ) { Text("Back") }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun SignUpScreenPreview() {
+private fun PreviewSignUp() {
     MyApplicationTheme {
         SignUpScreen(
-            uiState  = AuthViewModel.UiState.Idle,
+            uiState = AuthViewModel.UiState.Idle,
             onSignUp = { _, _, _ -> },
-            onBack   = {},
-            modifier  = Modifier.fillMaxSize()
+            onErrorShown = {},
+            onBack = {}
         )
     }
 }
