@@ -131,7 +131,6 @@ fun ProfileScreen(
     }
 }
 
-/* --- success layout extracted for reuse & preview --- */
 @Composable
 private fun ProfileContent(ui: ClientUiModel) {
     Column(
@@ -187,7 +186,6 @@ private fun ErrorContent(th: Throwable) {
     Text("Error: ${th.localizedMessage}")
 }
 
-/* --- static preview with fake data --- */
 @Preview(showBackground = true, widthDp = 360)
 @Composable
 private fun ProfilePreview() {

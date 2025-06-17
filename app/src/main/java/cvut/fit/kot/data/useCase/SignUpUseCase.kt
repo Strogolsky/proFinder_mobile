@@ -1,6 +1,5 @@
 package cvut.fit.kot.data.useCase
 
-import cvut.fit.kot.data.local.SessionDataStore
 import cvut.fit.kot.data.model.AuthRequest
 import cvut.fit.kot.data.repository.AuthRepository
 import cvut.fit.kot.data.repository.SessionRepository

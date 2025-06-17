@@ -35,7 +35,6 @@ class ClientProfileViewModel @Inject constructor(
 
     init { load() }
 
-    /* ---- public API ---- */
     fun load() = viewModelScope.launch {
         _state.value = UiState.Loading
         try {
@@ -57,8 +56,6 @@ class ClientProfileViewModel @Inject constructor(
     }
 }
 
-
-/** UI‑friendly representation (flat & nullable‑free) */
 data class ClientUiModel(
     val avatar: ImageBitmap?,
     val name: String,
@@ -68,7 +65,6 @@ data class ClientUiModel(
     val phone: String
 )
 
-/* --- mapping extension --- */
 private fun ClientResponse.toUi(avatar: ImageBitmap?) = ClientUiModel(
     avatar = avatar,
     name   = "$firstName $lastName",

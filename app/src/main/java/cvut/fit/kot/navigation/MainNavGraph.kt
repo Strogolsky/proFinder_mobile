@@ -18,6 +18,7 @@ import cvut.fit.kot.ui.auth.ForgotPasswordScreen
 import cvut.fit.kot.ui.auth.ResetPasswordScreen
 import cvut.fit.kot.ui.auth.SignInScreen
 import cvut.fit.kot.ui.auth.SignUpScreen
+import cvut.fit.kot.ui.chat.ChatScreen
 import cvut.fit.kot.ui.client.ClientMainScreen
 import cvut.fit.kot.ui.client.EditProfileScreen
 import cvut.fit.kot.ui.client.SpecialistScreen
@@ -88,6 +89,13 @@ fun MainNavGraph(
             arguments = listOf(navArgument("id") { type = NavType.LongType })
         ) {
             SpecialistScreen(rootNav)
+        }
+
+        composable(
+            "chat/{chatId}",
+            arguments = listOf(navArgument("chatId") { type = NavType.LongType })
+        ) {
+            ChatScreen(rootNav)
         }
 
         composable(

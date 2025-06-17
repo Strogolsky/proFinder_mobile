@@ -1,4 +1,4 @@
-package cvut.fit.kot.ui.viewmodel
+package cvut.fit.kot.ui.client
 
 import android.graphics.BitmapFactory
 import androidx.compose.ui.graphics.ImageBitmap
@@ -6,13 +6,16 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cvut.fit.kot.data.model.CreateChatRequest
 import cvut.fit.kot.data.model.SpecialistResponse
+import cvut.fit.kot.data.useCase.CreateChatUseCase
 import cvut.fit.kot.data.useCase.GetAvatarUseCase
 import cvut.fit.kot.data.useCase.GetSpecialistByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,10 +23,10 @@ class SpecialistViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getDetail: GetSpecialistByIdUseCase,
     private val getAvatar: GetAvatarUseCase,
+    private val createChat: CreateChatUseCase
 ) : ViewModel() {
 
 
-    /* ---------- UI-state ---------- */
     sealed interface UiState {
         object Loading : UiState
         data class Success(val data: SpecialistUiModel) : UiState
@@ -53,12 +56,26 @@ class SpecialistViewModel @Inject constructor(
         }
     }
 
-    /* ---------- public ---------- */
     fun openChat(onReady: (Long) -> Unit) = viewModelScope.launch {
+        try {
+            val resp = createChat(CreateChatRequest(recipientId = id))
+
+            if (resp.isSuccessful) {
+                val chatId = resp.body()?.chatId
+                    ?: throw IllegalStateException("Empty body")
+
+                onReady(chatId)
+            } else {
+                throw HttpException(resp)
+            }
+
+        } catch (e: Exception) {
+            _state.value = UiState.Error(e)
+        }
     }
+
 }
 
-/* --- UI model & mapper --- */
 data class SpecialistUiModel(
     val avatar: ImageBitmap?,
     val name: String,
@@ -76,7 +93,7 @@ private fun SpecialistResponse.toUi(img: ImageBitmap?) = SpecialistUiModel(
     city         = location.name,
     rating       = averageRating,
     services     = serviceOfferings.map { it.name },
-    description  = description,
+    description  = description.orEmpty(),
     email        = email,
-    phone        = phoneNumber
+    phone        = phoneNumber.orEmpty()
 )
