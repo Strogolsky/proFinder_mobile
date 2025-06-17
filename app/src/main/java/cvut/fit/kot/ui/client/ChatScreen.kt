@@ -22,10 +22,10 @@ import cvut.fit.kot.ui.client.ChatViewModel
 fun ChatScreen(
     rootNav: NavHostController,
     viewModel: ChatViewModel = hiltViewModel(),
-    myId: Long = 1
 ) {
     val state = viewModel.uiState
     var text by remember { mutableStateOf("") }
+    val myId  by viewModel.myId.collectAsState()
 
     Scaffold(
         topBar = {

@@ -11,6 +11,9 @@ import cvut.fit.kot.data.model.ChatMessageResponse
 import cvut.fit.kot.data.useCase.GetChatHistoryUseCase
 import cvut.fit.kot.data.useCase.ObserveChatMessagesUseCase
 import cvut.fit.kot.data.repository.SendMessageUseCase
+import cvut.fit.kot.data.repository.SessionRepository
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,11 +22,19 @@ class ChatViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getChatHistory: GetChatHistoryUseCase,
     private val observeMessages: ObserveChatMessagesUseCase,
-    private val sendMessage: SendMessageUseCase
+    private val sendMessage: SendMessageUseCase,
+    private val sessionRepository: SessionRepository
 ) : ViewModel() {
 
     private val chatId: Long =
         checkNotNull(savedStateHandle["chatId"]) { "chatId argument is missing" }
+
+    val myId = sessionRepository.userIdFlow()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = null
+        )
 
     sealed interface UiState {
         object Loading : UiState
@@ -33,6 +44,7 @@ class ChatViewModel @Inject constructor(
 
     var uiState by mutableStateOf<UiState>(UiState.Loading)
         private set
+
 
     init {
         loadHistory()
