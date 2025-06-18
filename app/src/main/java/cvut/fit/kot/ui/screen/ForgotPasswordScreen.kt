@@ -3,8 +3,6 @@ package cvut.fit.kot.ui.screen
 import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,12 +15,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import cvut.fit.kot.ui.components.BackButton
 import cvut.fit.kot.ui.viewModel.ForgotPasswordViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ForgotPasswordScreen(
-    nav: NavHostController,
+    rootNav: NavHostController,
     vm: ForgotPasswordViewModel = hiltViewModel()
 ) {
     val st by vm.state.collectAsState()
@@ -32,7 +31,7 @@ fun ForgotPasswordScreen(
         if (st.success) {
             val encoded = Uri.encode(st.email)
 
-            nav.navigate("reset_password?email=$encoded") {
+            rootNav.navigate("reset_password?email=$encoded") {
                 popUpTo("forgot_password") { inclusive = true }
             }
         }
@@ -44,9 +43,7 @@ fun ForgotPasswordScreen(
             TopAppBar(
                 title = { Text("Forgot password") },
                 navigationIcon = {
-                    IconButton(onClick = { nav.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = null)
-                    }
+                    BackButton(navController = rootNav)
                 },
                 actions = {
                     TextButton(

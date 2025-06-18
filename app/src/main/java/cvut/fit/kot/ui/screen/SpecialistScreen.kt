@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import cvut.fit.kot.ui.components.AvatarImage
+import cvut.fit.kot.ui.components.BackButton
 import cvut.fit.kot.ui.components.ContactInfoCard
 import cvut.fit.kot.ui.components.DescriptionCard
 import cvut.fit.kot.ui.components.LocationInfo
@@ -32,9 +33,7 @@ fun SpecialistScreen(
             title = { Text("Specialist") },
 
             navigationIcon = {
-                IconButton(onClick = { rootNav.popBackStack() }) {
-                    Icon(Icons.AutoMirrored.Outlined.ArrowBack, null)
-                }
+                BackButton(navController = rootNav)
             }
         )
                  },

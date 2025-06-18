@@ -2,8 +2,6 @@ package cvut.fit.kot.ui.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,12 +12,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import cvut.fit.kot.data.model.ClientRequest
 import cvut.fit.kot.data.model.LocationDto
+import cvut.fit.kot.ui.components.BackButton
 import cvut.fit.kot.ui.viewModel.EditProfileViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditProfileScreen(
-    nav: NavHostController,
+    rootNav: NavHostController,
     vm : EditProfileViewModel = hiltViewModel()
 ) {
     val st by vm.state.collectAsState()
@@ -28,18 +27,19 @@ fun EditProfileScreen(
     Scaffold(
         topBar = { TopAppBar(
             title = { Text("Edit profile") },
-            navigationIcon = { IconButton({ nav.popBackStack() }) {
-                Icon(Icons.AutoMirrored.Outlined.ArrowBack, null) } },
+            navigationIcon = {
+                BackButton(navController = rootNav)
+            },
             actions = {
                 TextButton(
                     enabled = st.form != null && !st.saving,
                     onClick = {
                         vm.save {
-                            nav.previousBackStackEntry
+                            rootNav.previousBackStackEntry
                                 ?.savedStateHandle
                                 ?.set("profile_updated", true)
 
-                            nav.popBackStack()
+                            rootNav.popBackStack()
                         }
                     }
                 ) { Text("Save") }

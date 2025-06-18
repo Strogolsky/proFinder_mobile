@@ -15,6 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import cvut.fit.kot.ui.components.BackButton
 import cvut.fit.kot.ui.viewModel.ChatViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,9 +32,7 @@ fun ChatScreen(
         topBar = {
             CenterAlignedTopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = { rootNav.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
-                    }
+                    BackButton(navController = rootNav)
                 },
                 title = { Text("Chat") }
             )

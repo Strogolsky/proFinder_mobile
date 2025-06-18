@@ -2,8 +2,6 @@ package cvut.fit.kot.ui.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,12 +11,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import cvut.fit.kot.ui.components.BackButton
 import cvut.fit.kot.ui.viewModel.ChangeEmailViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChangeEmailScreen(
-    nav: NavHostController,
+    rootNav: NavHostController,
     vm: ChangeEmailViewModel = hiltViewModel()
 ) {
     val st by vm.state.collectAsState()
@@ -27,7 +26,7 @@ fun ChangeEmailScreen(
     LaunchedEffect(st.success) {
         if (st.success) {
             snackbar.showSnackbar("Email changed successfully")
-            nav.popBackStack()
+            rootNav.popBackStack()
         }
     }
 
@@ -37,9 +36,7 @@ fun ChangeEmailScreen(
             TopAppBar(
                 title = { Text("Change email") },
                 navigationIcon = {
-                    IconButton(onClick = { nav.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Outlined.ArrowBack, null)
-                    }
+                    BackButton(navController = rootNav)
                 },
                 actions = {
                     TextButton(
@@ -48,11 +45,11 @@ fun ChangeEmailScreen(
                                 && st.password.isNotBlank(),
                         onClick = {
                             vm.save {
-                                nav.previousBackStackEntry
+                                rootNav.previousBackStackEntry
                                     ?.savedStateHandle
                                     ?.set("profile_updated", true)
 
-                                nav.popBackStack()
+                                rootNav.popBackStack()
                             }
                         }
                     ) { Text("Save") }
