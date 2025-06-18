@@ -14,6 +14,7 @@ import cvut.fit.kot.ui.components.BackButton
 import cvut.fit.kot.ui.components.NumberInputField
 import cvut.fit.kot.ui.components.TextInputField
 import cvut.fit.kot.ui.viewModel.EditProfileViewModel
+import cvut.fit.kot.ui.components.CenterProgress
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -145,9 +146,6 @@ private fun LocationPicker(
     }
 }
 
-
-@Composable private fun CenterProgress(pad: PaddingValues) =
-    Box(Modifier.fillMaxSize().padding(pad), Alignment.Center) { CircularProgressIndicator() }
 
 @Composable private fun CenterError(pad: PaddingValues, msg: String) =
     Box(Modifier.fillMaxSize().padding(pad), Alignment.Center) { Text("Error: $msg") }

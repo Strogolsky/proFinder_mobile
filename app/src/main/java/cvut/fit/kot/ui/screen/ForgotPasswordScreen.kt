@@ -2,22 +2,20 @@ package cvut.fit.kot.ui.screen
 
 import android.net.Uri
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import cvut.fit.kot.ui.components.BackButton
 import cvut.fit.kot.ui.components.TextInputField
 import cvut.fit.kot.ui.viewModel.ForgotPasswordViewModel
+import cvut.fit.kot.ui.components.CenterProgress
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,12 +79,3 @@ fun ForgotPasswordScreen(
         }
     }
 }
-
-@Composable
-private fun CenterProgress(pad: PaddingValues) =
-    Box(
-        Modifier
-            .fillMaxSize()
-            .padding(pad),
-        Alignment.Center
-    ) { CircularProgressIndicator() }
