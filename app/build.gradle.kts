@@ -100,5 +100,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 
     implementation("androidx.datastore:datastore-preferences:1.1.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
 }
 
