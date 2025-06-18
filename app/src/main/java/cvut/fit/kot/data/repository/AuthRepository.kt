@@ -6,7 +6,7 @@ import cvut.fit.kot.data.model.ChangeEmailRequest
 import cvut.fit.kot.data.model.ChangePasswordRequest
 import cvut.fit.kot.data.model.ForgotPasswordRequest
 import cvut.fit.kot.data.model.ResetPasswordRequest
-import cvut.fit.kot.data.remote.AuthApi
+import cvut.fit.kot.data.remote.api.AuthApi
 import retrofit2.Response
 import javax.inject.Inject
 

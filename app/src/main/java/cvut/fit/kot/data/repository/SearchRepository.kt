@@ -2,7 +2,7 @@ package cvut.fit.kot.data.repository
 
 import cvut.fit.kot.data.model.SpecialistSearchRequest
 import cvut.fit.kot.data.model.SpecialistSearchResponse
-import cvut.fit.kot.data.remote.SearchApi
+import cvut.fit.kot.data.remote.api.SearchApi
 import retrofit2.Response
 import javax.inject.Inject
 

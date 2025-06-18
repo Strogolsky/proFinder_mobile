@@ -1,6 +1,6 @@
 package cvut.fit.kot.data.remote
 
-import cvut.fit.kot.data.local.SessionDataStore
+import cvut.fit.kot.data.local.SessionDataSource
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
@@ -8,7 +8,7 @@ import okhttp3.Response
 import javax.inject.Inject
 
 class AuthInterceptor @Inject constructor(
-    private val tokenDS: SessionDataStore
+    private val tokenDS: SessionDataSource
 ) : Interceptor {
 
     private val guestPaths = setOf(

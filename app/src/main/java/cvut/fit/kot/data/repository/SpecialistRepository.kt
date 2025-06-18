@@ -1,7 +1,7 @@
 package cvut.fit.kot.data.repository
 
 import cvut.fit.kot.data.model.SpecialistResponse
-import cvut.fit.kot.data.remote.SpecialistApi
+import cvut.fit.kot.data.remote.api.SpecialistApi
 import retrofit2.Response
 import javax.inject.Inject
 

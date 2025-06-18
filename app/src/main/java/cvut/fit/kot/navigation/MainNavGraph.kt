@@ -10,9 +10,18 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import cvut.fit.kot.ui.auth.*
-import cvut.fit.kot.ui.chat.ChatScreen
-import cvut.fit.kot.ui.client.*
+import cvut.fit.kot.ui.screen.ChatScreen
+import cvut.fit.kot.ui.screen.AuthLandingScreen
+import cvut.fit.kot.ui.screen.ChangeEmailScreen
+import cvut.fit.kot.ui.screen.ChangePasswordScreen
+import cvut.fit.kot.ui.screen.ClientMainScreen
+import cvut.fit.kot.ui.screen.EditProfileScreen
+import cvut.fit.kot.ui.screen.ForgotPasswordScreen
+import cvut.fit.kot.ui.screen.ResetPasswordScreen
+import cvut.fit.kot.ui.screen.SignInScreen
+import cvut.fit.kot.ui.screen.SignUpScreen
+import cvut.fit.kot.ui.screen.SpecialistScreen
+import cvut.fit.kot.ui.viewModel.AuthViewModel
 
 @Composable
 fun MainNavGraph(
