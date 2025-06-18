@@ -10,22 +10,10 @@ class ResetPasswordUseCase @Inject constructor(
     private val authRepository: AuthRepository,
     private val sessionRepository: SessionRepository
 ) {
-    suspend fun invoke(request: ResetPasswordRequest): Result<Unit> {
-        return try {
-            val response = authRepository.resetPassword(request)
-            if (response.isSuccessful) {
-                val token = response.body()?.token
-                if (token != null) {
-                    sessionRepository.saveToken(token)
-                    Result.success(Unit)
-                } else {
-                    Result.failure(Exception("No token in response"))
-                }
-            } else {
-                Result.failure(HttpException(response))
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+    suspend operator fun invoke(
+        request: ResetPasswordRequest
+    ): Result<Unit> = runCatching {
+        val auth = authRepository.resetPassword(request)
+        sessionRepository.saveToken(auth.token)
     }
 }

@@ -30,15 +30,32 @@ class AuthRepository @Inject constructor(
             ?: throw IllegalStateException("Empty body in signIn() response")
     }
 
-    suspend fun changePassword(request: ChangePasswordRequest): Response<AuthResponse> =
-        api.changePassword(request)
+    suspend fun changePassword(request: ChangePasswordRequest): AuthResponse {
+        val response = api.changePassword(request)
+        if (!response.isSuccessful) throw HttpException(response)
 
-    suspend fun forgotPassword(request: ForgotPasswordRequest): Response<Unit> =
-        api.forgotPassword(request)
+        return response.body()
+            ?: throw IllegalStateException("Empty body in changePassword() response")
+    }
 
-    suspend fun resetPassword(request: ResetPasswordRequest): Response<AuthResponse> =
-        api.resetPassword(request)
+    suspend fun forgotPassword(request: ForgotPasswordRequest) {
+        val response = api.forgotPassword(request)
+        if (!response.isSuccessful) throw HttpException(response)
+    }
 
-    suspend fun changeEmail(request: ChangeEmailRequest): Response<AuthResponse> =
-        api.changeEmail(request);
+    suspend fun resetPassword(request: ResetPasswordRequest): AuthResponse {
+        val response = api.resetPassword(request)
+        if (!response.isSuccessful) throw HttpException(response)
+
+        return response.body()
+            ?: throw IllegalStateException("Empty body in changePassword() response")
+    }
+
+    suspend fun changeEmail(request: ChangeEmailRequest): AuthResponse {
+        val response = api.changeEmail(request)
+        if (!response.isSuccessful) throw HttpException(response)
+
+        return response.body()
+            ?: throw IllegalStateException("Empty body in changePassword() response")
+    }
 }
