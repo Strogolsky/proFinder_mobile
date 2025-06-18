@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import cvut.fit.kot.ui.components.BackButton
+import cvut.fit.kot.ui.components.TextInputField
 import cvut.fit.kot.ui.viewModel.ForgotPasswordViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,11 +71,10 @@ fun ForgotPasswordScreen(
                     )
                 }
 
-                OutlinedTextField(
+                TextInputField(
                     value = st.email,
                     onValueChange = vm::setEmail,
-                    label = { Text("Email") },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                    label = "Email",
                     modifier = Modifier.fillMaxWidth()
                 )
             }

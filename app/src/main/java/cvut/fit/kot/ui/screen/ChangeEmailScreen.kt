@@ -12,6 +12,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import cvut.fit.kot.ui.components.BackButton
+import cvut.fit.kot.ui.components.PasswordInputField
+import cvut.fit.kot.ui.components.TextInputField
 import cvut.fit.kot.ui.viewModel.ChangeEmailViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -74,20 +76,17 @@ fun ChangeEmailScreen(
                     )
                 }
 
-                OutlinedTextField(
+                TextInputField(
                     value = st.email,
                     onValueChange = vm::setEmail,
-                    label = { Text("New email") },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                    label = "New email",
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                OutlinedTextField(
+                PasswordInputField(
                     value = st.password,
                     onValueChange = vm::setPassword,
-                    label = { Text("Current password") },
-                    visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    label = "Current password",
                     modifier = Modifier.fillMaxWidth()
                 )
             }

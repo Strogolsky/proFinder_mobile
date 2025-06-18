@@ -12,6 +12,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import cvut.fit.kot.ui.components.BackButton
+import cvut.fit.kot.ui.components.NumberInputField
+import cvut.fit.kot.ui.components.PasswordInputField
 import cvut.fit.kot.ui.viewModel.ResetPasswordViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,29 +68,24 @@ fun ResetPasswordScreen(
                     )
                 }
 
-                OutlinedTextField(
+                NumberInputField(
                     value = st.code,
                     onValueChange = vm::setCode,
-                    label = { Text("Verification code") },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    label = "Verification code",
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                OutlinedTextField(
+                PasswordInputField(
                     value = st.new,
                     onValueChange = vm::setNew,
-                    label = { Text("New password") },
-                    visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    label = "New password",
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                OutlinedTextField(
+                PasswordInputField(
                     value = st.confirm,
                     onValueChange = vm::setConfirm,
-                    label = { Text("Confirm password") },
-                    visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    label = "Confirm password",
                     modifier = Modifier.fillMaxWidth()
                 )
             }

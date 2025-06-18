@@ -1,18 +1,18 @@
 package cvut.fit.kot.ui.screen
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import cvut.fit.kot.data.model.ClientRequest
 import cvut.fit.kot.data.model.LocationDto
 import cvut.fit.kot.ui.components.BackButton
+import cvut.fit.kot.ui.components.NumberInputField
+import cvut.fit.kot.ui.components.TextInputField
 import cvut.fit.kot.ui.viewModel.EditProfileViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -74,23 +74,22 @@ private fun EditForm(
 ) {
     Column(modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
 
-        OutlinedTextField(
+        TextInputField(
             value = f.firstName.orEmpty(),
             onValueChange = onFirst,
-            label = { Text("First name") }
+            label = "First name"
         )
 
-        OutlinedTextField(
+        TextInputField(
             value = f.lastName.orEmpty(),
             onValueChange = onLast,
-            label = { Text("Last name") }
+            label = "Last name"
         )
 
-        OutlinedTextField(
+        NumberInputField(
             value = f.phoneNumber.orEmpty(),
             onValueChange = onPhone,
-            label = { Text("Phone") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
+            label = "Phone"
         )
 
         LocationPicker(
@@ -114,17 +113,20 @@ private fun LocationPicker(
     var expanded by remember { mutableStateOf(false) }
 
     ExposedDropdownMenuBox(
-        modifier = modifier,
         expanded = expanded,
-        onExpandedChange = { expanded = !expanded }
+        onExpandedChange = { expanded = !expanded },
+        modifier = modifier
+            .fillMaxWidth()
     ) {
         OutlinedTextField(
-            value = selected?.name ?: "",
+            value = selected?.name.orEmpty(),
             onValueChange = {},
             readOnly = true,
             label = { Text("City") },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
-            modifier = Modifier.menuAnchor()
+            modifier = Modifier
+                .menuAnchor()
+                .fillMaxWidth()
         )
         ExposedDropdownMenu(
             expanded = expanded,
@@ -142,6 +144,7 @@ private fun LocationPicker(
         }
     }
 }
+
 
 @Composable private fun CenterProgress(pad: PaddingValues) =
     Box(Modifier.fillMaxSize().padding(pad), Alignment.Center) { CircularProgressIndicator() }

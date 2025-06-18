@@ -10,6 +10,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import cvut.fit.kot.ui.components.PasswordInputField
+import cvut.fit.kot.ui.components.TextInputField
 import cvut.fit.kot.ui.theme.MyApplicationTheme
 import cvut.fit.kot.ui.viewModel.AuthViewModel
 
@@ -52,22 +54,22 @@ fun SignInScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        OutlinedTextField(
+        TextInputField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(Modifier.height(16.dp))
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
-            visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier.fillMaxWidth()
+            label = "Email"
         )
 
         Spacer(Modifier.height(16.dp))
+
+        PasswordInputField(
+            value = password,
+            onValueChange = { password = it },
+            label = "Password"
+        )
+
+        Spacer(Modifier.height(16.dp))
+
         RoleSelector(
             selectedRole = selectedRole,
             onRoleSelected = { selectedRole = it }
