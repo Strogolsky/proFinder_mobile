@@ -1,11 +1,7 @@
 package cvut.fit.kot.ui.screen
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -16,12 +12,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import cvut.fit.kot.ui.components.AvatarImage
+import cvut.fit.kot.ui.components.ContactInfoCard
+import cvut.fit.kot.ui.components.LocationInfo
 import cvut.fit.kot.ui.viewModel.ClientProfileViewModel
 import cvut.fit.kot.ui.viewModel.ClientProfileViewModel.UiState
 import cvut.fit.kot.ui.viewModel.ClientUiModel
@@ -140,28 +138,13 @@ private fun ProfileContent(ui: ClientUiModel) {
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = Modifier.padding(horizontal = 24.dp)
     ) {
-        ui.avatar?.let { bitmap ->
-            Image(
-                bitmap = bitmap,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(112.dp)
-                    .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape)
-                    .padding(2.dp)
-                    .clip(CircleShape)
-            )
-        } ?: Icon(
-            imageVector = Icons.Default.AccountCircle,
-            contentDescription = null,
-            modifier = Modifier
-                .size(112.dp)
-                .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape)
-                .padding(2.dp)
-                .clip(CircleShape)
-        )
+        AvatarImage(ui.avatar)
 
         Text(ui.name, style = MaterialTheme.typography.headlineSmall)
-        Text("📍 ${ui.city}", style = MaterialTheme.typography.bodyMedium)
+
+        LocationInfo(
+            address = ui.city
+        )
 
         AssistChip(
             onClick = { },
@@ -171,14 +154,7 @@ private fun ProfileContent(ui: ClientUiModel) {
             )
         )
 
-        ElevatedCard(Modifier.fillMaxWidth()) {
-            Column(Modifier.padding(16.dp)) {
-                Text("Contacts", style = MaterialTheme.typography.titleMedium)
-                Spacer(Modifier.height(4.dp))
-                Text("Email:  ${ui.email}")
-                Text("Phone:  ${ui.phone}")
-            }
-        }
+        ContactInfoCard(ui.email, ui.phone)
     }
 }
 

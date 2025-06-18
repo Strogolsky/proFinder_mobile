@@ -20,6 +20,7 @@ class ChatRepository @Inject constructor(
 
     fun observe(chatId: Long) =
         ws.listen(chatId)
+
     fun send(chatId: Long, text: String) =
         ws.send(chatId, text)
 
