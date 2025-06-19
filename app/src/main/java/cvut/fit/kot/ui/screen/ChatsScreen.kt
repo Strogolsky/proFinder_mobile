@@ -17,9 +17,9 @@ import cvut.fit.kot.ui.viewModel.ChatsViewModel
 @Composable
 fun ChatsScreen(
     rootNav: NavHostController,
-    viewModel: ChatsViewModel = hiltViewModel()
+    vm: ChatsViewModel = hiltViewModel()
 ) {
-    val state = viewModel.uiState
+    val state = vm.uiState
 
     Scaffold(
         topBar = { CenterAlignedTopAppBar(title = { Text("Chats") }) }

@@ -28,9 +28,9 @@ import cvut.fit.kot.ui.viewModel.ClientUiModel
 @Composable
 fun ProfileScreen(
     rootNav: NavHostController,
-    viewModel: ClientProfileViewModel = hiltViewModel()
+    vm: ClientProfileViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.state.collectAsState()
+    val uiState by vm.state.collectAsState()
     val expanded = remember { mutableStateOf(false) }
     val savedStateHandle = rootNav.currentBackStackEntry?.savedStateHandle
     val showLogoutDialog = remember { mutableStateOf(false) }
@@ -40,7 +40,7 @@ fun ProfileScreen(
             ?.getStateFlow("profile_updated", false)
             ?.collect { changed ->
                 if (changed) {
-                    viewModel.load()
+                    vm.load()
                     savedStateHandle["profile_updated"] = false
                 }
             }
@@ -111,7 +111,7 @@ fun ProfileScreen(
                 TextButton(
                     onClick = {
                         showLogoutDialog.value = false
-                        viewModel.logout {
+                        vm.logout {
                             rootNav.navigate("landing") {
                                 popUpTo(0) { inclusive = true }
                                 launchSingleTop = true

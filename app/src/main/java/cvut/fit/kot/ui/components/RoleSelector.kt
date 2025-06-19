@@ -1,4 +1,4 @@
-package cvut.fit.kot.ui.screen
+package cvut.fit.kot.ui.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*

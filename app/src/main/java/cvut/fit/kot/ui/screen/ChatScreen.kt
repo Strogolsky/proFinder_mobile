@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -22,11 +21,11 @@ import cvut.fit.kot.ui.viewModel.ChatViewModel
 @Composable
 fun ChatScreen(
     rootNav: NavHostController,
-    viewModel: ChatViewModel = hiltViewModel(),
+    vm: ChatViewModel = hiltViewModel(),
 ) {
-    val state = viewModel.uiState
+    val state = vm.uiState
     var text by remember { mutableStateOf("") }
-    val myId  by viewModel.myId.collectAsState()
+    val myId  by vm.myId.collectAsState()
 
     Scaffold(
         topBar = {
@@ -53,7 +52,7 @@ fun ChatScreen(
                 )
                 IconButton(
                     onClick = {
-                        viewModel.send(text)
+                        vm.send(text)
                         text = ""
                     }
                 ) { Icon(Icons.Default.Send, null) }

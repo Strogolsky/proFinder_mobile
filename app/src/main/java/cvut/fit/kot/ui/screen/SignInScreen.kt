@@ -5,12 +5,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import cvut.fit.kot.ui.components.PasswordInputField
+import cvut.fit.kot.ui.components.RoleSelector
 import cvut.fit.kot.ui.components.TextInputField
 import cvut.fit.kot.ui.theme.MyApplicationTheme
 import cvut.fit.kot.ui.viewModel.AuthViewModel

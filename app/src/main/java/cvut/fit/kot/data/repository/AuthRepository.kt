@@ -8,7 +8,6 @@ import cvut.fit.kot.data.model.ForgotPasswordRequest
 import cvut.fit.kot.data.model.ResetPasswordRequest
 import cvut.fit.kot.data.remote.api.AuthApi
 import retrofit2.HttpException
-import retrofit2.Response
 import javax.inject.Inject
 
 class AuthRepository @Inject constructor(
