@@ -1,6 +1,6 @@
 package cvut.fit.kot.data.repository
 
-import cvut.fit.kot.data.remote.FileApi
+import cvut.fit.kot.data.remote.api.FileApi
 import javax.inject.Inject
 
 class FileRepository @Inject constructor (
