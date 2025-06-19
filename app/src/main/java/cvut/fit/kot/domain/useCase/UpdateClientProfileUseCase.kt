@@ -9,15 +9,8 @@ import javax.inject.Inject
 class UpdateClientProfileUseCase @Inject constructor(
     private val repository: ClientRepository
 ) {
-    suspend fun invoke(request: ClientRequest): ClientResponse {
-        val response = repository.updateProfile(request)
-
-        if (response.isSuccessful) {
-            return response.body()
-                ?: throw IllegalStateException("Error response")
-        } else {
-            throw HttpException(response)
-        }
+    suspend operator fun invoke(request: ClientRequest): ClientResponse {
+        return repository.updateProfile(request)
     }
 
 }

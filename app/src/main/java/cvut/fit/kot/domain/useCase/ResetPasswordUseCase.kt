@@ -3,7 +3,6 @@ package cvut.fit.kot.domain.useCase
 import cvut.fit.kot.data.model.ResetPasswordRequest
 import cvut.fit.kot.data.repository.AuthRepository
 import cvut.fit.kot.data.repository.SessionRepository
-import retrofit2.HttpException
 import javax.inject.Inject
 
 class ResetPasswordUseCase @Inject constructor(
