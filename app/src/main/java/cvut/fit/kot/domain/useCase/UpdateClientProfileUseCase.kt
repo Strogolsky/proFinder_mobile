@@ -9,7 +9,7 @@ import javax.inject.Inject
 class UpdateClientProfileUseCase @Inject constructor(
     private val repository: ClientRepository
 ) {
-    suspend operator fun invoke(request: ClientRequest): ClientResponse {
+    suspend operator fun invoke(request: ClientRequest): Result<ClientResponse> {
         return repository.updateProfile(request)
     }
 

@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetClientProfileUseCase @Inject constructor(
     private val repository: ClientRepository
 ) {
-    suspend operator fun invoke(): ClientResponse {
+    suspend operator fun invoke(): Result<ClientResponse> {
         return repository.getProfile()
     }
 }

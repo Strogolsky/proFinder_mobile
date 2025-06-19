@@ -38,7 +38,7 @@ class ClientProfileViewModel @Inject constructor(
     fun load() = viewModelScope.launch {
         _state.value = UiState.Loading
         try {
-            val profile = getProfile.invoke().getOrThrow()
+            val profile = getProfile().getOrThrow()
 
             val avatarBytes = getAvatarUseCase(profile.id)
             val avatarBitmap = avatarBytes

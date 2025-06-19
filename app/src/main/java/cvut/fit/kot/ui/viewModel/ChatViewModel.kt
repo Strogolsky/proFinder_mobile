@@ -53,7 +53,7 @@ class ChatViewModel @Inject constructor(
 
     private fun loadHistory() = viewModelScope.launch {
         uiState = UiState.Loading
-        uiState = getChatHistory.invoke(chatId).fold(
+        uiState = getChatHistory(chatId).fold(
             { UiState.Success(it.sortedBy { m -> m.id }) },
             { UiState.Error(it.message ?: "Error") }
         )

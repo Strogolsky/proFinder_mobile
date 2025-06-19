@@ -35,8 +35,8 @@ class EditProfileViewModel @Inject constructor(
     fun load() = viewModelScope.launch {
         _state.value = UiState(loading = true)
         runCatching {
-            val profile   = async { getProfile.invoke().getOrThrow() }
-            val locations = async { getLocations.invoke().getOrThrow() }
+            val profile   = async { getProfile().getOrThrow() }
+            val locations = async { getLocations().getOrThrow() }
 
             _state.value.copy(
                 loading   = false,
@@ -62,7 +62,7 @@ class EditProfileViewModel @Inject constructor(
         val req = _state.value.form ?: return@launch
         _state.update { it.copy(saving = true, error = null) }
 
-        runCatching { updateProfile.invoke(req) }
+        runCatching { updateProfile(req).getOrThrow() }
             .onSuccess { updated ->
                 _state.value = _state.value.copy(
                     saving = false,

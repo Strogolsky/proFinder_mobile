@@ -9,19 +9,19 @@ import javax.inject.Inject
 class ClientRepository @Inject constructor(
     private val api: ClientApi
 ) {
-    suspend fun getProfile(): ClientResponse {
+    suspend fun getProfile(): Result<ClientResponse> = runCatching {
         val response = api.getProfile()
         if (response.isSuccessful) {
-            return response.body() ?: throw IllegalStateException("Empty response body")
+            response.body() ?: throw IllegalStateException("Empty response body")
         } else {
             throw HttpException(response)
         }
     }
 
-    suspend fun updateProfile(request: ClientRequest): ClientResponse {
+    suspend fun updateProfile(request: ClientRequest): Result<ClientResponse> = runCatching {
         val response = api.updateProfile(request)
         if (response.isSuccessful) {
-            return response.body() ?: throw IllegalStateException("Empty response body")
+            response.body() ?: throw IllegalStateException("Empty response body")
         } else {
             throw HttpException(response)
         }
