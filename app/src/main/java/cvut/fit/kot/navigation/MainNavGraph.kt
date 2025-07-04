@@ -17,6 +17,7 @@ import cvut.fit.kot.ui.screen.ChangePasswordScreen
 import cvut.fit.kot.ui.screen.ClientMainScreen
 import cvut.fit.kot.ui.screen.EditProfileScreen
 import cvut.fit.kot.ui.screen.ForgotPasswordScreen
+import cvut.fit.kot.ui.screen.OrderDetailsScreen
 import cvut.fit.kot.ui.screen.ResetPasswordScreen
 import cvut.fit.kot.ui.screen.SignInScreen
 import cvut.fit.kot.ui.screen.SignUpScreen
@@ -102,6 +103,14 @@ fun MainNavGraph(
             route     = "specialist/{id}",
             arguments = listOf(navArgument("id") { type = NavType.LongType })
         ) { SpecialistScreen(rootNav) }
+
+        composable(
+            route     = "order/{orderId}",
+            arguments = listOf(navArgument("orderId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments!!.getLong("orderId")
+            OrderDetailsScreen(orderId = id, rootNav = rootNav)
+        }
 
         composable(
             "chat/{chatId}",
