@@ -7,6 +7,7 @@ import cvut.fit.kot.data.remote.api.ChatApi
 import cvut.fit.kot.data.remote.api.ClientApi
 import cvut.fit.kot.data.remote.api.FileApi
 import cvut.fit.kot.data.remote.api.LocationApi
+import cvut.fit.kot.data.remote.api.OrderApi
 import cvut.fit.kot.data.remote.api.SearchApi
 import cvut.fit.kot.data.remote.api.SpecialistApi
 import dagger.Module
@@ -67,6 +68,7 @@ object NetworkModule {
     @Provides fun provideSearchApi(r: Retrofit): SearchApi = r.create(SearchApi::class.java)
     @Provides fun provideSpecialistApi(r: Retrofit): SpecialistApi = r.create(SpecialistApi::class.java)
     @Provides fun provideChatApi(r: Retrofit): ChatApi = r.create(ChatApi::class.java)
+    @Provides fun provideOrderApi(r: Retrofit): OrderApi = r.create(OrderApi::class.java)
 
     @Provides @Singleton
     fun provideChatDataStore(
