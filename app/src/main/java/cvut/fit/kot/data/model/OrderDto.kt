@@ -5,6 +5,8 @@ data class OrderDto (
 
     val clientId: Long,
 
+    val title: String,
+
     val description: String,
 
     val price: Int,

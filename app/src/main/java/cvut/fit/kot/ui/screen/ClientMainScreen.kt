@@ -53,7 +53,7 @@ fun ClientMainScreen(rootNav: NavHostController) {
             modifier = Modifier.padding(inner)
         ) {
             composable(ClientNavItem.Search.route) { SearchScreen(rootNav) }
-            composable(ClientNavItem.Orders.route) { OrdersScreen(rootNav) }
+            composable(ClientNavItem.Orders.route) { OrderListScreen(rootNav) }
             composable(ClientNavItem.Chats.route) { ChatsScreen(rootNav) }
             composable(ClientNavItem.Profile.route) { ProfileScreen(rootNav) }
         }

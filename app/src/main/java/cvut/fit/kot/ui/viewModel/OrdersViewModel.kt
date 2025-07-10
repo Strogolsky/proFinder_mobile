@@ -20,16 +20,14 @@ class OrdersViewModel @Inject constructor(
     /* ───────── local UI-model ───────── */
     data class OrderUi(
         val id: Long,
-        val description: String,
+        val title: String,
         val status: OrderStatus,
-        val serviceOfferings: String
     )
 
     private fun OrderDto.toUi() = OrderUi(
         id = id,
-        description = description,
+        title = title,
         status = status,
-        serviceOfferings = serviceOfferings.joinToString { it.name }
     )
     /* ────────────────────────────────── */
 

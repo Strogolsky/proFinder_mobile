@@ -60,6 +60,9 @@ private fun DetailsContent(order: OrderDto) = Column(
 ) {
     ElevatedCard(Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp)) {
+            Text("Title", style = MaterialTheme.typography.titleMedium)
+            Text(order.title.orEmpty(), style = MaterialTheme.typography.bodyLarge)
+            Spacer(Modifier.height(4.dp))
             Text("Description", style = MaterialTheme.typography.titleMedium)
             Spacer(Modifier.height(4.dp))
             Text(order.description.orEmpty(), style = MaterialTheme.typography.bodyLarge)
