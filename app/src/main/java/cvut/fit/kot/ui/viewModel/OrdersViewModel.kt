@@ -2,9 +2,9 @@ package cvut.fit.kot.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cvut.fit.kot.data.model.OrderDto
+import cvut.fit.kot.data.model.OrderResponse
 import cvut.fit.kot.data.model.OrderStatus
-import cvut.fit.kot.domain.useCase.GetOrdersByClientUseCase
+import cvut.fit.kot.domain.useCase.order.GetOrdersByClientUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,7 +24,7 @@ class OrdersViewModel @Inject constructor(
         val status: OrderStatus,
     )
 
-    private fun OrderDto.toUi() = OrderUi(
+    private fun OrderResponse.toUi() = OrderUi(
         id = id,
         title = title,
         status = status,

@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cvut.fit.kot.data.model.CreateChatRequest
 import cvut.fit.kot.data.model.SpecialistResponse
-import cvut.fit.kot.domain.useCase.CreateChatUseCase
+import cvut.fit.kot.domain.useCase.chat.CreateChatUseCase
 import cvut.fit.kot.domain.useCase.GetAvatarUseCase
 import cvut.fit.kot.domain.useCase.GetSpecialistByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

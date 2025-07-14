@@ -1,0 +1,14 @@
+package cvut.fit.kot.domain.useCase.order
+
+import cvut.fit.kot.data.model.OrderRequest
+import cvut.fit.kot.data.model.OrderResponse
+import cvut.fit.kot.data.repository.OrderRepository
+import javax.inject.Inject
+
+class CreateOrderUseCase @Inject constructor(
+    private val repository: OrderRepository
+) {
+    suspend operator fun invoke(req: OrderRequest): Result<OrderResponse> {
+        return repository.create(req)
+    }
+}

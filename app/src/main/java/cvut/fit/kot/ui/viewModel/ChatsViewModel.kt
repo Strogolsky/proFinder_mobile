@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import cvut.fit.kot.data.model.ChatResponse
-import cvut.fit.kot.domain.useCase.GetChatsProfileUseCase
+import cvut.fit.kot.domain.useCase.chat.GetChatsProfileUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

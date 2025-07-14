@@ -15,6 +15,7 @@ import cvut.fit.kot.ui.screen.AuthLandingScreen
 import cvut.fit.kot.ui.screen.ChangeEmailScreen
 import cvut.fit.kot.ui.screen.ChangePasswordScreen
 import cvut.fit.kot.ui.screen.ClientMainScreen
+import cvut.fit.kot.ui.screen.CreateOrderScreen
 import cvut.fit.kot.ui.screen.EditProfileScreen
 import cvut.fit.kot.ui.screen.ForgotPasswordScreen
 import cvut.fit.kot.ui.screen.OrderDetailsScreen
@@ -98,6 +99,7 @@ fun MainNavGraph(
         composable("change_password") { ChangePasswordScreen(rootNav) }
         composable("forgot_password") { ForgotPasswordScreen(rootNav) }
         composable("change_email")    { ChangeEmailScreen(rootNav) }
+        composable("create_order")    { CreateOrderScreen(rootNav)}
 
         composable(
             route     = "specialist/{id}",

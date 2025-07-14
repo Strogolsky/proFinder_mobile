@@ -11,10 +11,12 @@ import androidx.navigation.NavHostController
 import cvut.fit.kot.data.model.ClientRequest
 import cvut.fit.kot.data.model.LocationDto
 import cvut.fit.kot.ui.components.BackButton
+import cvut.fit.kot.ui.components.CenterError
 import cvut.fit.kot.ui.components.NumberInputField
 import cvut.fit.kot.ui.components.TextInputField
 import cvut.fit.kot.ui.viewModel.EditProfileViewModel
 import cvut.fit.kot.ui.components.CenterProgress
+import cvut.fit.kot.ui.components.LocationPicker
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -101,51 +103,3 @@ private fun EditForm(
         )
     }
 }
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun LocationPicker(
-    all: List<LocationDto>,
-    selected: LocationDto?,
-    onSelect: (LocationDto) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    var expanded by remember { mutableStateOf(false) }
-
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = { expanded = !expanded },
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
-        OutlinedTextField(
-            value = selected?.name.orEmpty(),
-            onValueChange = {},
-            readOnly = true,
-            label = { Text("City") },
-            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
-            modifier = Modifier
-                .menuAnchor()
-                .fillMaxWidth()
-        )
-        ExposedDropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false }
-        ) {
-            all.forEach { loc ->
-                DropdownMenuItem(
-                    text = { Text(loc.name) },
-                    onClick = {
-                        expanded = false
-                        onSelect(loc)
-                    }
-                )
-            }
-        }
-    }
-}
-
-
-@Composable private fun CenterError(pad: PaddingValues, msg: String) =
-    Box(Modifier.fillMaxSize().padding(pad), Alignment.Center) { Text("Error: $msg") }

@@ -1,4 +1,4 @@
-package cvut.fit.kot.domain.useCase
+package cvut.fit.kot.domain.useCase.auth
 
 import cvut.fit.kot.data.model.ForgotPasswordRequest
 import cvut.fit.kot.data.repository.AuthRepository

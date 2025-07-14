@@ -16,9 +16,7 @@ import androidx.navigation.NavHostController
 import cvut.fit.kot.data.model.*
 import cvut.fit.kot.ui.components.*
 import cvut.fit.kot.ui.viewModel.OrderDetailsViewModel
-import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.MonetizationOn
-import androidx.compose.ui.graphics.Color
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,7 +49,10 @@ fun OrderDetailsScreen(
                             )
                             DropdownMenuItem(
                                 text = { Text("Cancel") },
-                                onClick = { menuExpanded = false }
+                                onClick = {
+                                    menuExpanded = false
+                                    viewModel.cancel(orderId)
+                                }
                             )
                         }
                     }
@@ -80,7 +81,7 @@ private fun ErrorText(text: String) = Box(
 ) { Text("Error: $text", color = MaterialTheme.colorScheme.error) }
 
 @Composable
-private fun DetailsContent(order: OrderDto) = LazyColumn(
+private fun DetailsContent(order: OrderResponse) = LazyColumn(
     modifier = Modifier
         .fillMaxSize()
         .padding(16.dp),
@@ -135,7 +136,7 @@ private fun LabeledText(label: String, value: String) = Row {
 @Preview(showBackground = true)
 @Composable
 private fun OrderDetailsPreview() {
-    val fakeOrder = OrderDto(
+    val fakeOrder = OrderResponse(
         id = 1L,
         clientId = 2L,
         title = "Haircut at Home",

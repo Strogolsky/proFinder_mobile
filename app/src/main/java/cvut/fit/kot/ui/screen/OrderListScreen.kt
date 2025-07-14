@@ -34,7 +34,7 @@ fun OrderListScreen(
             CenterAlignedTopAppBar(
                 title = { Text("Orders") },
                 actions = {
-                    IconButton(onClick = { /* TODO: handle create order click */ }) {
+                    IconButton(onClick = { rootNav.navigate("create_order") }) {
                         Icon(
                             imageVector = Icons.Default.Add,
                             contentDescription = "Create Order"

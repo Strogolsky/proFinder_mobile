@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cvut.fit.kot.data.model.ResetPasswordRequest
-import cvut.fit.kot.domain.useCase.ResetPasswordUseCase
+import cvut.fit.kot.domain.useCase.auth.ResetPasswordUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

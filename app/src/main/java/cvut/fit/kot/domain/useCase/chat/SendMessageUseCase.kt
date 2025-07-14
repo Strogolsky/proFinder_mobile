@@ -1,4 +1,4 @@
-package cvut.fit.kot.domain.useCase
+package cvut.fit.kot.domain.useCase.chat
 
 import cvut.fit.kot.data.repository.ChatRepository
 import javax.inject.Inject

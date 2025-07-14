@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import cvut.fit.kot.data.model.ChatMessageResponse
-import cvut.fit.kot.domain.useCase.GetChatHistoryUseCase
-import cvut.fit.kot.domain.useCase.ObserveChatMessagesUseCase
-import cvut.fit.kot.domain.useCase.SendMessageUseCase
+import cvut.fit.kot.domain.useCase.chat.GetChatHistoryUseCase
+import cvut.fit.kot.domain.useCase.chat.ObserveChatMessagesUseCase
+import cvut.fit.kot.domain.useCase.chat.SendMessageUseCase
 import cvut.fit.kot.data.repository.SessionRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn

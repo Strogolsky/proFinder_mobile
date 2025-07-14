@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import cvut.fit.kot.data.model.LocationDto
 import cvut.fit.kot.data.model.SpecialistSearchRequest
 import cvut.fit.kot.data.model.SpecialistSearchResponse
-import cvut.fit.kot.domain.useCase.GetAllLocationsUseCase
+import cvut.fit.kot.domain.useCase.location.GetAllLocationsUseCase
 import cvut.fit.kot.domain.useCase.SpecialistSearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job

@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cvut.fit.kot.data.model.ClientResponse
 import cvut.fit.kot.domain.useCase.GetAvatarUseCase
-import cvut.fit.kot.domain.useCase.GetClientProfileUseCase
-import cvut.fit.kot.domain.useCase.LogOutUseCase
+import cvut.fit.kot.domain.useCase.client.GetClientProfileUseCase
+import cvut.fit.kot.domain.useCase.auth.LogOutUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,9 +1,6 @@
 package cvut.fit.kot.data.model
 
-data class OrderDto (
-    val id: Long,
-
-    val clientId: Long,
+data class OrderRequest(
 
     val title: String,
 
@@ -13,9 +10,5 @@ data class OrderDto (
 
     val location: LocationDto,
 
-    val createAt: String,
-
     val serviceOfferings: List<ServiceOfferingDto>,
-
-    val status: OrderStatus
 )

@@ -1,9 +1,8 @@
-package cvut.fit.kot.domain.useCase
+package cvut.fit.kot.domain.useCase.client
 
 import cvut.fit.kot.data.model.ClientRequest
 import cvut.fit.kot.data.model.ClientResponse
 import cvut.fit.kot.data.repository.ClientRepository
-import retrofit2.HttpException
 import javax.inject.Inject
 
 class UpdateClientProfileUseCase @Inject constructor(

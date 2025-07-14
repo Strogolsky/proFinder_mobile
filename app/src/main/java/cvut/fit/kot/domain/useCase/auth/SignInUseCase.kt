@@ -1,12 +1,11 @@
-package cvut.fit.kot.domain.useCase
+package cvut.fit.kot.domain.useCase.auth
 
 import cvut.fit.kot.data.model.AuthRequest
 import cvut.fit.kot.data.repository.AuthRepository
 import cvut.fit.kot.data.repository.SessionRepository
-import retrofit2.HttpException
 import javax.inject.Inject
 
-class SignUpUseCase @Inject constructor(
+class SignInUseCase @Inject constructor(
     private val authRepository: AuthRepository,
     private val sessionRepository: SessionRepository
 ) {
@@ -15,7 +14,7 @@ class SignUpUseCase @Inject constructor(
         password: String,
         role: String
     ): Result<Unit> = runCatching {
-        val auth = authRepository.signUp(AuthRequest(email, password, role))
-        sessionRepository.save(auth.token, role)
+        val authResponse = authRepository.signIn(AuthRequest(email, password, role))
+        sessionRepository.save(authResponse.token, role)
     }
 }
