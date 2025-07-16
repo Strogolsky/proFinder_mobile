@@ -22,4 +22,8 @@ interface OrderApi {
     @POST("/order")
     suspend fun create(@Body request: OrderRequest): Response<OrderResponse>
 
+    @PUT("/order/{orderId}")
+    suspend fun update(@Path("orderId") orderId: Long, @Body request: OrderRequest): Response<OrderResponse>
+
+
 }

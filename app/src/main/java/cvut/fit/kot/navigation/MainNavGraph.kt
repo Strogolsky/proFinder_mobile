@@ -16,6 +16,7 @@ import cvut.fit.kot.ui.screen.ChangeEmailScreen
 import cvut.fit.kot.ui.screen.ChangePasswordScreen
 import cvut.fit.kot.ui.screen.ClientMainScreen
 import cvut.fit.kot.ui.screen.CreateOrderScreen
+import cvut.fit.kot.ui.screen.EditOrderScreen
 import cvut.fit.kot.ui.screen.EditProfileScreen
 import cvut.fit.kot.ui.screen.ForgotPasswordScreen
 import cvut.fit.kot.ui.screen.OrderDetailsScreen
@@ -118,6 +119,14 @@ fun MainNavGraph(
             "chat/{chatId}",
             arguments = listOf(navArgument("chatId") { type = NavType.LongType })
         ) { ChatScreen(rootNav) }
+
+        composable(
+            route     = "order/{orderId}/edit",
+            arguments = listOf(navArgument("orderId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments!!.getLong("orderId")
+            EditOrderScreen(orderId = id, rootNav = rootNav)
+        }
 
         composable(
             route = "reset_password?email={email}",

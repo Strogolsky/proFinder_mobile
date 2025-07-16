@@ -44,6 +44,15 @@ class OrderRepository @Inject constructor(
         }
     }
 
+    suspend fun update(orderId: Long, request: OrderRequest) : Result<OrderResponse> = runCatching {
+        val response = api.update(orderId, request)
+        if (response.isSuccessful) {
+            response.body() ?: throw IllegalStateException("Empty response body")
+        } else {
+            throw HttpException(response)
+        }
+    }
+
 
 
 

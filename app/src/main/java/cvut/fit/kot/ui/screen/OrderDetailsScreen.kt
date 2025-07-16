@@ -45,7 +45,7 @@ fun OrderDetailsScreen(
                         ) {
                             DropdownMenuItem(
                                 text = { Text("Edit") },
-                                onClick = { /* TODO: Add edit screen */ }
+                                onClick = { rootNav.navigate("order/${orderId}/edit") }
                             )
                             DropdownMenuItem(
                                 text = { Text("Cancel") },
