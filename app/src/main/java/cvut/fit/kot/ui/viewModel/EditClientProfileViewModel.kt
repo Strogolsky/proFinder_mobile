@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import cvut.fit.kot.data.model.ClientRequest
 import cvut.fit.kot.data.model.ClientResponse
 import cvut.fit.kot.data.model.LocationDto
-import cvut.fit.kot.domain.useCase.GetAllLocationsUseCase
-import cvut.fit.kot.domain.useCase.GetClientProfileUseCase
-import cvut.fit.kot.domain.useCase.UpdateClientProfileUseCase
+import cvut.fit.kot.domain.useCase.location.GetAllLocationsUseCase
+import cvut.fit.kot.domain.useCase.client.GetClientProfileUseCase
+import cvut.fit.kot.domain.useCase.client.UpdateClientProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*

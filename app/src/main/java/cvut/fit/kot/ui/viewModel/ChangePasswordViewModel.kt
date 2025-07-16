@@ -3,7 +3,7 @@ package cvut.fit.kot.ui.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cvut.fit.kot.data.model.ChangePasswordRequest
-import cvut.fit.kot.domain.useCase.ChangePasswordUseCase
+import cvut.fit.kot.domain.useCase.auth.ChangePasswordUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

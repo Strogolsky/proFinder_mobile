@@ -3,7 +3,7 @@ package cvut.fit.kot.ui.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cvut.fit.kot.data.model.ChangeEmailRequest
-import cvut.fit.kot.domain.useCase.ChangeEmailUseCase
+import cvut.fit.kot.domain.useCase.auth.ChangeEmailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

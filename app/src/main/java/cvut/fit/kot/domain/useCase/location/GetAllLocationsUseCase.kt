@@ -1,4 +1,4 @@
-package cvut.fit.kot.domain.useCase
+package cvut.fit.kot.domain.useCase.location
 
 import cvut.fit.kot.data.model.LocationDto
 import cvut.fit.kot.data.repository.LocationRepository

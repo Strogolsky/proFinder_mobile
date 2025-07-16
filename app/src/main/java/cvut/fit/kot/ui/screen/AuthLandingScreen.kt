@@ -22,6 +22,12 @@ fun AuthLandingScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        Text(
+            text = "ProFinder",
+            style = MaterialTheme.typography.displayLarge,
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.padding(bottom = 48.dp)
+        )
         Button(
             onClick = onSignUpClick,
             modifier = Modifier

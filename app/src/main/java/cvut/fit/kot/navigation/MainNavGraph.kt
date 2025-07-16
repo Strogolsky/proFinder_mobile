@@ -15,8 +15,11 @@ import cvut.fit.kot.ui.screen.AuthLandingScreen
 import cvut.fit.kot.ui.screen.ChangeEmailScreen
 import cvut.fit.kot.ui.screen.ChangePasswordScreen
 import cvut.fit.kot.ui.screen.ClientMainScreen
+import cvut.fit.kot.ui.screen.CreateOrderScreen
+import cvut.fit.kot.ui.screen.EditOrderScreen
 import cvut.fit.kot.ui.screen.EditProfileScreen
 import cvut.fit.kot.ui.screen.ForgotPasswordScreen
+import cvut.fit.kot.ui.screen.OrderDetailsScreen
 import cvut.fit.kot.ui.screen.ResetPasswordScreen
 import cvut.fit.kot.ui.screen.SignInScreen
 import cvut.fit.kot.ui.screen.SignUpScreen
@@ -97,6 +100,7 @@ fun MainNavGraph(
         composable("change_password") { ChangePasswordScreen(rootNav) }
         composable("forgot_password") { ForgotPasswordScreen(rootNav) }
         composable("change_email")    { ChangeEmailScreen(rootNav) }
+        composable("create_order")    { CreateOrderScreen(rootNav)}
 
         composable(
             route     = "specialist/{id}",
@@ -104,9 +108,25 @@ fun MainNavGraph(
         ) { SpecialistScreen(rootNav) }
 
         composable(
+            route     = "order/{orderId}",
+            arguments = listOf(navArgument("orderId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments!!.getLong("orderId")
+            OrderDetailsScreen(orderId = id, rootNav = rootNav)
+        }
+
+        composable(
             "chat/{chatId}",
             arguments = listOf(navArgument("chatId") { type = NavType.LongType })
         ) { ChatScreen(rootNav) }
+
+        composable(
+            route     = "order/{orderId}/edit",
+            arguments = listOf(navArgument("orderId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments!!.getLong("orderId")
+            EditOrderScreen(orderId = id, rootNav = rootNav)
+        }
 
         composable(
             route = "reset_password?email={email}",

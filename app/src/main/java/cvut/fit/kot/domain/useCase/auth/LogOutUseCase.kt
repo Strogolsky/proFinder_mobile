@@ -1,4 +1,4 @@
-package cvut.fit.kot.domain.useCase
+package cvut.fit.kot.domain.useCase.auth
 
 import cvut.fit.kot.data.repository.SessionRepository
 import javax.inject.Inject

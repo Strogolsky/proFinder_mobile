@@ -12,8 +12,9 @@ class AuthInterceptor @Inject constructor(
 ) : Interceptor {
 
     private val guestPaths = setOf(
-        "auth/signUp",
-        "auth/signIn"
+        "/auth/signUp",
+        "/auth/signIn",
+        "/service"
     )
 
     override fun intercept(chain: Interceptor.Chain): Response {

@@ -1,4 +1,4 @@
-package cvut.fit.kot.domain.useCase
+package cvut.fit.kot.domain.useCase.client
 
 import cvut.fit.kot.data.model.ClientResponse
 import cvut.fit.kot.data.repository.ClientRepository

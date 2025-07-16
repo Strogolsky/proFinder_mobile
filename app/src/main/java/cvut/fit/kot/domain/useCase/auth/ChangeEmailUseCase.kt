@@ -1,18 +1,18 @@
-package cvut.fit.kot.domain.useCase
+package cvut.fit.kot.domain.useCase.auth
 
-import cvut.fit.kot.data.model.ResetPasswordRequest
+import cvut.fit.kot.data.model.ChangeEmailRequest
 import cvut.fit.kot.data.repository.AuthRepository
 import cvut.fit.kot.data.repository.SessionRepository
 import javax.inject.Inject
 
-class ResetPasswordUseCase @Inject constructor(
+class ChangeEmailUseCase @Inject constructor(
     private val authRepository: AuthRepository,
     private val sessionRepository: SessionRepository
 ) {
     suspend operator fun invoke(
-        request: ResetPasswordRequest
+        request: ChangeEmailRequest
     ): Result<Unit> = runCatching {
-        val auth = authRepository.resetPassword(request)
+        val auth = authRepository.changeEmail(request)
         sessionRepository.saveToken(auth.token)
     }
 }

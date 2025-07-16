@@ -3,8 +3,8 @@ package cvut.fit.kot.ui.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cvut.fit.kot.data.repository.SessionRepository
-import cvut.fit.kot.domain.useCase.SignInUseCase
-import cvut.fit.kot.domain.useCase.SignUpUseCase
+import cvut.fit.kot.domain.useCase.auth.SignInUseCase
+import cvut.fit.kot.domain.useCase.auth.SignUpUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
